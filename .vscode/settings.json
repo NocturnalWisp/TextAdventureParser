@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.toml": "toml",
+        "*.dry": "lua",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "utility": "cpp",
+        "map": "cpp",
+        "functional": "cpp",
+        "xutility": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp"
+    }
+}

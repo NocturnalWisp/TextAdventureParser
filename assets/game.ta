@@ -1,0 +1,73 @@
+# % -> List
+# * -> State
+# ^ -> Call external function.
+
+scenes:
+    woods:
+        desc:
+            The woods are filthy with litter from the padestrians that walked beneath its branches.
+        items:
+            $branch
+        exits:
+            south:
+                $town
+    town:
+        %description:
+            *1:
+                Yoserite is a small town with few people. They are going about their day.
+            *2:
+                The town of Yoserite is empty. Items are strewn everywhere and there is no sign of life.
+                You can see the volcano erupting in the distance.
+        %items:
+            *1:
+                $stroller
+            *2:
+                $bread
+                $branch
+        exits:
+            *2:
+                north:
+                    $woods
+
+items:
+    branch:
+        desc:
+            A small branch fallen off a tree in the fall season.
+        actions:
+            combine branch & bread:
+                ^combine_items:
+                    $self
+                    $moldy bread
+                    $bread on a stick
+    bread:
+        desc:
+            A small bit of bread.
+        actions:
+            combine bread & branch:
+                ^combine_items:
+                    $self
+                    $branch
+                    $bread on a stick
+    bread on a stick:
+        desc:
+            A piece of bread on a stick.
+        actions:
+            eat:
+                ^destroy_item:
+                    $self
+    stroller:
+        desc:
+            A small baby stroller with evil properties.
+        actions:
+            push stroller towards the volcano:
+                ^trigger_event:
+                    $volcano_erupt
+        
+events:
+    volcano_erupt:
+        desc:
+            The volcano up the mountain from town starts to erupt. The townspeople have started to flee.
+        actions:
+            ^change_state:
+                $town
+                2
