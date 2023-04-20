@@ -57,7 +57,7 @@ namespace
         std::string newString;
         for (char c : og)
         {
-            if (!std::isalnum(c))
+            if (std::isalnum(c))
                 newString.push_back(c);
         }
 

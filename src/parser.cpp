@@ -31,7 +31,11 @@ TextAdventure Parser::Parse(std::string& file)
                     auto objectHeader = GetHeaders(headerForObject.second, true, 2);
                     //TODO: Attach result to text adventure object.
                     auto objectName = std::string(headerForObject.first);
-                    TAObject result = strategy.second->Parse(objectName, objectHeader);
+                    TAObject& result = strategy.second->Parse(objectName, objectHeader);
+
+                    auto newStrat = strategy.second->Create();
+                    delete strategy.second;
+                    strategy.second = newStrat;
                 }
             }
         }

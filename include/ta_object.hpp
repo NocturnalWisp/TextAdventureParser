@@ -13,4 +13,9 @@ public:
     bool valid = false;
 
     virtual TAObject& Parse(std::string&, OptionalMap); 
+
+    virtual TAObject* Create()
+    {
+        return new TAObject;
+    };
 };

@@ -18,6 +18,9 @@ public:
     std::vector<std::tuple<TAString, TAReference>> exits;
 
     TAObject& Parse(std::string&, OptionalMap = std::nullopt) override; 
-private:
-    void HandleName();
+
+    TAObject* Create() override
+    {
+        return new TAScene;
+    };
 };

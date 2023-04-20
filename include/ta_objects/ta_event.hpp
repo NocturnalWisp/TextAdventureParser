@@ -15,4 +15,9 @@ public:
 
         return *this;
     }
+
+    TAObject* Create() override
+    {
+        return new TAEvent;
+    };
 };
