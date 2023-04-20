@@ -9,21 +9,12 @@
 #include "ta_objects/ta_item.hpp"
 #include "ta_objects/ta_event.hpp"
 
+class TAScene;
+
 class Parser
 {
 public:
     Parser();
-
-public:
-    TextAdventure Parse(std::string& file);
-
-private:
-    const std::map<std::string, TAObject*> parseStrategies =
-    {
-        { "scenes", new TAScene() },
-        { "items", new TAItem() },
-        { "events", new TAEvent() }
-    };
 
     ~Parser()
     {
@@ -33,4 +24,16 @@ private:
             delete strategy.second;
         }
     }
+
+public:
+    TextAdventure Parse(std::string& file);
+    static std::map<std::string, std::vector<std::string>> GetHeaders(std::vector<std::string>&, bool applyColonRemoval = false, int indentCount = 0);
+
+private:
+    const std::map<std::string, TAObject*> parseStrategies =
+    {
+        { "scenes", new TAScene() },
+        { "items", new TAItem() },
+        { "events", new TAEvent() }
+    };
 };

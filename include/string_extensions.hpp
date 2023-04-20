@@ -1,16 +1,19 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <tuple>
 #include <vector>
 #include <map>
 #include <functional>
 
+#include "ta_objects/ta_string.hpp"
+
 template<typename T>
 using StringMap = std::map<std::string, T>;
 
 template<typename T>
-using StringMapIt = typename StringMap<T>::iterator;
+using StringMapIt = typename StringMap<T>::const_iterator;
 
 namespace
 {
@@ -34,7 +37,7 @@ namespace
         return lines;
     }
 
-    bool HasDeliminator(std::string& og, char deliminator)
+    bool HasDeliminator(std::string const& og, char deliminator)
     {
         bool has = false;
         for (char c : og)
@@ -48,6 +51,18 @@ namespace
 
         return has;
     }
+
+    std::string RemoveDeliminators(std::string const& og)
+    {
+        std::string newString;
+        for (char c : og)
+        {
+            if (!std::isalnum(c))
+                newString.push_back(c);
+        }
+
+        return newString;
+    }
     
     std::tuple<std::string, std::string> SpliceString(std::string const& og, char deliminator, bool truncate = false)
     {
@@ -59,88 +74,85 @@ namespace
                 continue;
 
             if (c == deliminator)
-                doneFirst = true;
-            else
             {
-                if (!doneFirst)
-                    first.push_back(c);
-                else
-                    second.push_back(c);
+                doneFirst = true;
+                continue;
             }
+
+            if (!doneFirst)
+                first.push_back(c);
+            else
+                second.push_back(c);
         }
 
         return {first, second};
     }
 
-    // Returns a map of indented items.
-    std::map<std::string, std::vector<std::string>> GetHeaders(std::vector<std::string>& lines, bool applyColonRemoval = false, int indentCount = 0)
+    inline std::string ltrim(std::string const& s, const char t = ' ')
     {
-        auto headers = std::map<std::string, std::vector<std::string>>();
-
-        std::vector<std::string> internalLines = std::vector<std::string>();
-        bool inLineHeader = false;
-        std::string lineHeader;
-        for (std::string line : lines)
-        {
-            if (line[0] == '#' || line[0] == 0)
-                continue;
-
-            if (line[indentCount*4] == ' ' && inLineHeader)
-            {
-                internalLines.push_back(line);
-                continue;
-            }
-
-            if (inLineHeader)
-            {
-                headers.insert(std::pair(lineHeader, internalLines));
-                internalLines.clear();
-            }
-
-            lineHeader = applyColonRemoval ? std::get<0>(SpliceString(line, ':', true)) : line;
-            inLineHeader = true;
-        }
-
-        // Insert the last header.
-        headers.insert(std::pair(lineHeader, internalLines));
-
-        return headers;
+        return s.substr(s.find_first_not_of(t));
     }
 
     // Finds the first key that matches a passed list of keys.
     template <typename T>
-    constexpr StringMapIt<T> FindFor(StringMapIt<T> first, StringMapIt<T> last, std::vector<std::string> keys)
+    constexpr StringMapIt<T> FindFor(StringMapIt<T> first, StringMapIt<T> last, std::vector<std::string> const& keys)
     {
         for (; first != last; ++first)
-        {
             for (auto key = 0; key < keys.size(); key++)
                 if (keys[key].compare(first->first) == 0)
                     return first;
-        }
         return last;
     }
 
+    // Uses the find for to grab the contents of headers found by keys.
+    template <typename TAObj, typename MapType, typename Func>
+    void HandleGrabLines(std::map<std::string, MapType> const& m,
+        std::vector<std::string> keys,
+        Func handleAppend, bool trim = true)
+    {
+        auto header = FindFor<MapType>
+            (m.begin(), m.end(), keys);
+        
+        if (header == m.end())
+        {
+            std::cerr << "Failed to find header by any of these keys: [";
+            for (auto key : keys)
+                std::cerr << key << ", ";
+            std::cerr << "\b\b]" << std::endl;
+            return;
+        }
+
+        for (auto line : header->second)
+        {
+            if (trim)
+            {
+                auto trimmed = ltrim(line);
+                handleAppend(trimmed);
+            }
+            else
+                handleAppend(line);
+        }
+    }
+
+    // Handle Append deals with adding the content of headers to a string or list.
     void HandleAppend(std::string& str, std::string item)
     {
         str.append(item);
     }
 
-    void HandleAppend(std::vector<std::string>& list, std::string item)
+    void HandleAppend(TAString& str, TAString const& item)
     {
-        list.push_back(item);
+        str.str.append(item.str);
     }
 
-    // Uses the find for to grab the contents of headers found by keys.
-    template <typename T, typename U>
-    void HandleGrabLines(std::map<std::string, T>& m,
-        std::vector<std::string> keys,
-        U& target)
+    void HandleAppend(TAString& str, std::string const& item)
     {
-        auto header = FindFor<T>
-            (m.begin(), m.end(), keys);
-        
-        if (header != m.end())
-            for (auto line : header->second)
-                HandleAppend(target, line);
+        str.str.append(item);
+    }
+
+    template<typename T>
+    void HandleAppend(std::vector<T>& list, T item)
+    {
+        list.push_back(item);
     }
 }

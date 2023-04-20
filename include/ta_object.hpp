@@ -2,9 +2,15 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <optional>
+
+using OptionalMap = std::optional<std::map<std::string, std::vector<std::string>>>;
 
 class TAObject
 {
 public:
-    virtual std::vector<TAObject> Parse(std::vector<std::string>);
+    bool valid = false;
+
+    virtual TAObject& Parse(std::string&, OptionalMap); 
 };

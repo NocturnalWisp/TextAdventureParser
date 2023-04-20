@@ -8,11 +8,11 @@
 class TAEvent : public TAObject
 {
 public:
-    std::vector<TAObject> Parse(std::vector<std::string> items) override
+    TAObject& Parse(std::string& str, OptionalMap m) override
     {
         // for (auto s : items)
             // std::cout << s << std::endl;
 
-        return std::vector<TAObject>();
+        return *this;
     }
 };

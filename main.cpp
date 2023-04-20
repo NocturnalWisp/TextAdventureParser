@@ -2,13 +2,14 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <memory>
 
 #include "include/parser.hpp"
 #include "include/string_extensions.hpp"
 
 int main(int , char *[])
 {
-    Parser* parser = new Parser();
+    std::unique_ptr<Parser> parser = std::unique_ptr<Parser>(new Parser());
 
     std::ifstream stream("assets/game.ta");
     std::stringstream buffer;
