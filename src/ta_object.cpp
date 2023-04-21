@@ -1,7 +1,16 @@
 #include "../include/ta_object.hpp"
 
-TAObject& TAObject::Parse(std::string& str, OptionalMap m = std::nullopt)
+TAObject& TAObject::Parse(std::string& str, OptionalMap m)
 {
-    valid = true;
     return *this;
-} 
+}
+
+TAObject* TAObject::Create()
+{
+    return new TAObject;
+}
+
+std::string& TAObject::getString()
+{
+    return name;
+}

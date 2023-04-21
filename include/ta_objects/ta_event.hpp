@@ -8,6 +8,8 @@
 class TAEvent : public TAObject
 {
 public:
+    TAObject name;
+
     TAObject& Parse(std::string& str, OptionalMap m) override
     {
         // for (auto s : items)
@@ -20,4 +22,9 @@ public:
     {
         return new TAEvent;
     };
+
+    std::string& getString() override
+    {
+        return name.getString();
+    }
 };

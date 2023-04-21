@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include <optional>
+#include <memory>
 
 using OptionalMap = std::optional<std::map<std::string, std::vector<std::string>>>;
 
@@ -12,10 +13,11 @@ class TAObject
 public:
     bool valid = false;
 
-    virtual TAObject& Parse(std::string&, OptionalMap); 
+    virtual TAObject& Parse(std::string&, OptionalMap = std::nullopt); 
 
-    virtual TAObject* Create()
-    {
-        return new TAObject;
-    };
+    virtual TAObject* Create();
+
+    virtual std::string& getString();
+private:
+    std::string name = "Text Adventure Object";
 };

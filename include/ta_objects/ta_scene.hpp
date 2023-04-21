@@ -12,15 +12,16 @@
 class TAScene : public TAObject
 {
 public:
-    TAString name;
-    TAString desc;
-    std::vector<TAReference> items;
-    std::vector<std::tuple<TAString, TAReference>> exits;
+    ~TAScene();
+public:
+    TAObject* name;
+    TAObject* desc;
+    std::vector<TAObject*> items;
+    std::vector<std::tuple<TAString, TAObject*>> exits;
 
     TAObject& Parse(std::string&, OptionalMap = std::nullopt) override; 
 
-    TAObject* Create() override
-    {
-        return new TAScene;
-    };
+    TAObject* Create() override;
+
+    std::string& getString() override;
 };

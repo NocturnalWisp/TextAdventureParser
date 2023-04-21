@@ -52,6 +52,23 @@ namespace
         return has;
     }
 
+    std::vector<char> HasDeliminator(std::string const& og, std::vector<char> deliminators)
+    {
+        std::vector<char> has;
+        for (char c : og)
+        {
+            for (char delim : deliminators)
+            {
+                if (c == delim)
+                {
+                    has.push_back(delim);
+                }
+            }
+        }
+
+        return has;
+    }
+
     std::string RemoveDeliminators(std::string const& og)
     {
         std::string newString;
@@ -95,23 +112,41 @@ namespace
 
     // Finds the first key that matches a passed list of keys.
     template <typename T>
-    constexpr StringMapIt<T> FindFor(StringMapIt<T> first, StringMapIt<T> last, std::vector<std::string> const& keys)
+    constexpr StringMapIt<T> FindFor(StringMapIt<T> first,
+        StringMapIt<T> last,
+        std::vector<std::string> const& keys,
+        char allowedDelim = ' ',
+        char& usedDelim = ' ')
     {
         for (; first != last; ++first)
+        {
             for (auto key = 0; key < keys.size(); key++)
+            {
                 if (keys[key].compare(first->first) == 0)
                     return first;
+                
+                if (allowedDelim != ' ' &&
+                    (allowedDelim + keys[key]).compare(first->first) == 0)
+                {
+                    usedDelim = allowedDelim;
+                    return first;
+                }
+            }
+        }
         return last;
     }
 
     // Uses the find for to grab the contents of headers found by keys.
-    template <typename TAObj, typename MapType, typename Func>
+    template <typename TAObj, typename MapType>
     void HandleGrabLines(std::map<std::string, MapType> const& m,
         std::vector<std::string> keys,
-        Func handleAppend, bool trim = true)
+        char allowedDelims,
+        std::function<void(std::string, char)> handleAppend,
+        bool trim = true)
     {
+        auto usedDelim = ' ';
         auto header = FindFor<MapType>
-            (m.begin(), m.end(), keys);
+            (m.begin(), m.end(), keys, allowedDelims, usedDelim);
         
         if (header == m.end())
         {
@@ -127,10 +162,10 @@ namespace
             if (trim)
             {
                 auto trimmed = ltrim(line);
-                handleAppend(trimmed);
+                handleAppend(trimmed, usedDelim);
             }
             else
-                handleAppend(line);
+                handleAppend(line, usedDelim);
         }
     }
 
@@ -150,8 +185,8 @@ namespace
         str.str.append(item);
     }
 
-    template<typename T>
-    void HandleAppend(std::vector<T>& list, T item)
+    template<typename T, typename U>
+    void HandleAppend(std::vector<T>& list, U item)
     {
         list.push_back(item);
     }

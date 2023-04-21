@@ -1,13 +1,18 @@
+#pragma once
+
 #include "../ta_object.hpp"
 
 #include "string_extensions.hpp"
+#include "esc_state.hpp"
 
 class TAReference : public TAObject
 {
 public:
     TAReference(){}
     TAReference(std::string str) : str(str) {}
-    TAReference& Parse (std::string& str, OptionalMap m = std::nullopt) override;
+    TAObject& Parse (std::string& str, OptionalMap m = std::nullopt) override;
 public:
     std::string str;
+
+    std::string& getString() override;
 };
