@@ -13,19 +13,19 @@ scenes:
                 $town
     town:
         %description:
-            *1:
+            1:
                 Yoserite is a small town with few people. They are going about their day.
-            *2:
+            2:
                 The town of Yoserite is empty. Items are strewn everywhere and there is no sign of life.
                 You can see the volcano erupting in the distance.
         %items:
-            *1:
+            1:
                 $stroller
-            *2:
+            2:
                 $bread
                 $branch
         exits:
-            *2:
+            2:
                 north:
                     $woods
 

@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include <functional>
+#include <numeric>
 
 #include "ta_objects/ta_string.hpp"
 
@@ -189,5 +190,27 @@ namespace
     void HandleAppend(std::vector<T>& list, U item)
     {
         list.push_back(item);
+    }
+
+    std::string CombineString(std::vector<std::string>& list)
+    {
+        return std::accumulate(
+        std::next(list.begin()), 
+        list.end(), 
+        list[0], 
+        [](std::string a, std::string b) {
+            return a + b;
+        });
+    }
+
+    std::string CombineString(std::vector<std::string> const& list)
+    {
+        return std::accumulate(
+        std::next(list.begin()), 
+        list.end(), 
+        list[0], 
+        [](std::string a, std::string b) {
+            return a + b;
+        });
     }
 }

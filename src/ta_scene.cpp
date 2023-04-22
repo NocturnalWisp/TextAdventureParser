@@ -14,6 +14,16 @@ TAScene::~TAScene()
     exits.clear();
 }
 
+TAObject* TAScene::Create()
+{
+    return new TAScene;
+};
+
+std::string& TAScene::getString()
+{
+    return name->getString();
+}
+
 TAObject& TAScene::Parse(std::string& sceneName, OptionalMap m)
 {
     if (!m.has_value())
@@ -25,38 +35,9 @@ TAObject& TAScene::Parse(std::string& sceneName, OptionalMap m)
     
     name = new TAString(sceneName);
 
-    HandleGrabLines<TAString>(
-        propertyHeaders,
-        { "description", "desc" },
-        { '%' },
-        [&](auto item, auto delim)
-            {
-                std::cout << item << std::endl;
-                if (delim != '%')
-                    desc = &(new TAString())->Parse(item);
-                else
-                    desc = &(new TAState())->Parse(item);
-            }
-    );
-
-    HandleGrabLines<TAReference>(
-        propertyHeaders,
-        { "items" },
-        { '%' },
-        [&](auto item, auto delim) { items.push_back(&(new TAReference())->Parse(item)); }
-    );
-
-    HandleGrabLines<TAReference>(
-        propertyHeaders,
-        { "exits" },
-        { '%' },
-        [&](auto item, auto delim)
-            {
-                auto exit = &(new TAReference())->Parse(item);
-                exits.push_back(std::pair(TAString(), exit));
-            },
-        false
-    );
+    getDescription(m);
+    getItems(m);
+    getExits(m);
 
     std::cout << std::endl;
     std::cout << name->getString() << std::endl;
@@ -70,14 +51,66 @@ TAObject& TAScene::Parse(std::string& sceneName, OptionalMap m)
 
     valid = true;
     return *this;
+};
+
+void TAScene::getDescription(OptionalMap m)
+{
+    std::vector<std::string> stateLines;
+    HandleGrabLines<std::string>(
+        m.value(),
+        { "description", "desc" },
+        { '%' },
+        [&](auto item, auto delim)
+            {
+                if (delim != '%')
+                {
+                    if (desc == nullptr)
+                        desc = new TAString();
+                    std::cout << "SF: " << desc << std::endl;
+                    desc->getString().append(item);
+                }
+                else
+                {
+                    stateLines.push_back(item);
+                }
+            },
+            false
+    );
+
+    if (stateLines.size() > 0)
+    {
+        // Use state to represent the data.
+        auto stateHeaders = Parser::GetHeaders(
+            stateLines,
+            true,
+            3
+        );
+
+        desc = &(new TAState(currentState))->Parse(defaultName, stateHeaders);
+    }
 }
 
-TAObject* TAScene::Create()
+void TAScene::getItems(OptionalMap m)
 {
-    return new TAScene;
-};
+    HandleGrabLines<TAReference>(
+        m.value(),
+        { "items" },
+        { '%' },
+        [&](auto item, auto delim) { items.push_back(&(new TAReference())->Parse(item)); }
+    );
+}
 
-std::string& TAScene::getString()
+void TAScene::getExits(OptionalMap m)
 {
-    return name->getString();
-};
+    HandleGrabLines<TAReference>(
+        m.value(),
+        { "exits" },
+        { '%' },
+        [&](auto item, auto delim)
+            {
+                auto exit = &(new TAReference())->Parse(item);
+                exits.push_back(std::pair(TAString(), exit));
+            },
+        false
+    );
+}

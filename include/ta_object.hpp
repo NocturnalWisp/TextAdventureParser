@@ -18,6 +18,6 @@ public:
     virtual TAObject* Create();
 
     virtual std::string& getString();
-private:
-    std::string name = "Text Adventure Object";
+protected:
+    std::string defaultName = "Text Adventure Object";
 };

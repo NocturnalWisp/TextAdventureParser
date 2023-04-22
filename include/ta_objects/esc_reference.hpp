@@ -3,7 +3,6 @@
 #include "../ta_object.hpp"
 
 #include "string_extensions.hpp"
-#include "esc_state.hpp"
 
 class TAReference : public TAObject
 {

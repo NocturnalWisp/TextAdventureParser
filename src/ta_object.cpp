@@ -12,5 +12,5 @@ TAObject* TAObject::Create()
 
 std::string& TAObject::getString()
 {
-    return name;
+    return defaultName;
 }

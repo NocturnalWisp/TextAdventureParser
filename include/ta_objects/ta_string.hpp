@@ -6,7 +6,7 @@ class TAString : public TAObject
 {
 public:
     TAString(){}
-    TAString(std::string str) : str(str) {}
+    TAString(std::string str) : str(str) { valid = true; }
 public:
     std::string str;
 

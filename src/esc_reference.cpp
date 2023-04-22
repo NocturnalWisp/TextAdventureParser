@@ -4,14 +4,6 @@ TAObject& TAReference::Parse (std::string& str, OptionalMap m)
 {
     if (!HasDeliminator(str, '$'))
         return *this;
-    
-    if (HasDeliminator(str, '%'))
-    {
-        TAState* s = new TAState();
-
-
-        return *s;
-    }
 
     this->str = RemoveDeliminators(str);
 
