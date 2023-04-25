@@ -8,7 +8,7 @@
 #include "esc_reference.hpp"
 #include "esc_state.hpp"
 
-#include "string_extensions.hpp"
+#include "../string_extensions.hpp"
 
 class TAScene : public TAObject
 {

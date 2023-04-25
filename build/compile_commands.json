@@ -1,0 +1,32 @@
+[
+{
+  "directory": "E:/Hobby/TextAdventureParser/build",
+  "command": "C:/cygwin64/bin/g++.exe   -g -o CMakeFiles/TAP.dir/main.cpp.obj -c E:/Hobby/TextAdventureParser/main.cpp",
+  "file": "E:/Hobby/TextAdventureParser/main.cpp",
+  "output": "CMakeFiles/TAP.dir/main.cpp.obj"
+},
+{
+  "directory": "E:/Hobby/TextAdventureParser/build",
+  "command": "C:/cygwin64/bin/g++.exe   -g -o CMakeFiles/TAP.dir/src/esc_reference.cpp.obj -c E:/Hobby/TextAdventureParser/src/esc_reference.cpp",
+  "file": "E:/Hobby/TextAdventureParser/src/esc_reference.cpp",
+  "output": "CMakeFiles/TAP.dir/src/esc_reference.cpp.obj"
+},
+{
+  "directory": "E:/Hobby/TextAdventureParser/build",
+  "command": "C:/cygwin64/bin/g++.exe   -g -o CMakeFiles/TAP.dir/src/parser.cpp.obj -c E:/Hobby/TextAdventureParser/src/parser.cpp",
+  "file": "E:/Hobby/TextAdventureParser/src/parser.cpp",
+  "output": "CMakeFiles/TAP.dir/src/parser.cpp.obj"
+},
+{
+  "directory": "E:/Hobby/TextAdventureParser/build",
+  "command": "C:/cygwin64/bin/g++.exe   -g -o CMakeFiles/TAP.dir/src/ta_object.cpp.obj -c E:/Hobby/TextAdventureParser/src/ta_object.cpp",
+  "file": "E:/Hobby/TextAdventureParser/src/ta_object.cpp",
+  "output": "CMakeFiles/TAP.dir/src/ta_object.cpp.obj"
+},
+{
+  "directory": "E:/Hobby/TextAdventureParser/build",
+  "command": "C:/cygwin64/bin/g++.exe   -g -o CMakeFiles/TAP.dir/src/ta_scene.cpp.obj -c E:/Hobby/TextAdventureParser/src/ta_scene.cpp",
+  "file": "E:/Hobby/TextAdventureParser/src/ta_scene.cpp",
+  "output": "CMakeFiles/TAP.dir/src/ta_scene.cpp.obj"
+}
+]

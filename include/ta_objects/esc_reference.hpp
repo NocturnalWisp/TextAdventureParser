@@ -2,7 +2,7 @@
 
 #include "../ta_object.hpp"
 
-#include "string_extensions.hpp"
+#include "../string_extensions.hpp"
 
 class TAReference : public TAObject
 {

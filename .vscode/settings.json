@@ -61,5 +61,9 @@
         "xlocmon": "cpp",
         "xloctime": "cpp",
         "optional": "cpp"
+    },
+    "cmake.sourceDirectory": "E:/Hobby/TextAdventureParser",
+    "search.exclude": {
+        "build": true
     }
 }
