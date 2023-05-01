@@ -16,7 +16,7 @@ public:
     ~TAScene();
 public:
     TAObject* name;
-    TAObject* desc;
+    TAObject* desc = new TAString();
     std::vector<TAObject*> items;
     std::vector<std::tuple<TAString, TAObject*>> exits;
 

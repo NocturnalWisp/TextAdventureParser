@@ -11,7 +11,7 @@ int main(int , char *[])
 {
     std::unique_ptr<Parser> parser = std::unique_ptr<Parser>(new Parser());
 
-    std::ifstream stream("assets/game.ta");
+    std::ifstream stream("game.ta");
     std::stringstream buffer;
     buffer << stream.rdbuf();
     std::string gameString = buffer.str();

@@ -64,10 +64,7 @@ void TAScene::getDescription(OptionalMap m)
             {
                 if (delim != '%')
                 {
-                    if (desc == nullptr)
-                        desc = new TAString();
-                    std::cout << "SF: " << desc << std::endl;
-                    desc->getString().append(item);
+                    desc->getString().append(ltrim(item));
                 }
                 else
                 {
@@ -82,22 +79,42 @@ void TAScene::getDescription(OptionalMap m)
         // Use state to represent the data.
         auto stateHeaders = Parser::GetHeaders(
             stateLines,
-            true,
+            false,
             3
         );
 
+        delete desc;
         desc = &(new TAState(currentState))->Parse(defaultName, stateHeaders);
     }
 }
 
 void TAScene::getItems(OptionalMap m)
 {
+    std::vector<std::string> stateLines;
     HandleGrabLines<TAReference>(
         m.value(),
         { "items" },
         { '%' },
-        [&](auto item, auto delim) { items.push_back(&(new TAReference())->Parse(item)); }
+        [&](auto item, auto delim)
+        {
+            if (delim != '%')
+                items.push_back(&(new TAReference())->Parse(item));
+            else
+                stateLines.push_back(item);
+        },
+        false
     );
+
+    if (stateLines.size() > 0)
+    {
+        auto stateHeaders = Parser::GetHeaders(
+            stateLines,
+            false,
+            3
+        );
+
+        items.push_back(&(new TAState(currentState))->Parse(defaultName, stateHeaders));
+    }
 }
 
 void TAScene::getExits(OptionalMap m)

@@ -36,6 +36,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake"
   "C:/Program Files/CMake/share/cmake-3.26/Templates/CPackConfig.cmake.in"
   "E:/Hobby/TextAdventureParser/CMakeLists.txt"
+  "E:/Hobby/TextAdventureParser/assets/game.ta"
   "CMakeFiles/3.26.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.26.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.26.3/CMakeRCCompiler.cmake"
@@ -50,6 +51,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "game.ta"
   "DartConfiguration.tcl"
   "CPackConfig.cmake"
   "CPackSourceConfig.cmake"

@@ -32,6 +32,7 @@ public:
             else
             {
                 auto combinedString = CombineString(state.second);
+                std::cout << combinedString << std::endl;
                 states.push_back(TAString().Parse(combinedString));
             }
         }

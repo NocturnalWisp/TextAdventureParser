@@ -199,7 +199,7 @@ namespace
         list.end(), 
         list[0], 
         [](std::string a, std::string b) {
-            return a + b;
+            return a + "\n" + b;
         });
     }
 
