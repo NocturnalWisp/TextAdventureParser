@@ -194,23 +194,23 @@ namespace
 
     std::string CombineString(std::vector<std::string>& list)
     {
-        return std::accumulate(
+        return ltrim(std::accumulate(
         std::next(list.begin()), 
         list.end(), 
         list[0], 
         [](std::string a, std::string b) {
-            return a + "\n" + b;
-        });
+            return ltrim(a) + "\n" + ltrim(b);
+        }));
     }
 
     std::string CombineString(std::vector<std::string> const& list)
     {
-        return std::accumulate(
+        return ltrim(std::accumulate(
         std::next(list.begin()), 
         list.end(), 
         list[0], 
         [](std::string a, std::string b) {
-            return a + b;
-        });
+            return ltrim(a) + ltrim(b);
+        }));
     }
 }

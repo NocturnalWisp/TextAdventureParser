@@ -25,9 +25,8 @@ scenes:
                 $bread
                 $branch
         exits:
-            2:
-                north:
-                    $woods
+            north:
+                $woods
 
 items:
     branch:

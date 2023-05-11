@@ -84,7 +84,9 @@ void TAScene::getDescription(OptionalMap m)
         );
 
         delete desc;
-        desc = &(new TAState(currentState))->Parse(defaultName, stateHeaders);
+        TAState* state = new TAState(currentState);
+        state->Parse(defaultName, stateHeaders);
+        desc = state;
     }
 }
 
