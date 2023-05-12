@@ -6,6 +6,7 @@
 
 #include "ta_string.hpp"
 #include "esc_reference.hpp"
+#include "ta_array.hpp"
 
 class TAState : public TAObject
 {
@@ -33,15 +34,32 @@ public:
         
         for (auto state : m.value())
         {
-            if (HasDeliminator(state.second[0], '$'))
+            if (ltrim(state.first)[0] != '%')
             {
+                TAObject* newObj;
+                if (HasDeliminator(state.second[0], '$'))
+                    newObj = new TAReference();
+                else
+                    newObj = new TAString();
+
                 auto combinedString = CombineString(state.second);
-                states.push_back(&(new TAReference())->Parse(combinedString));
+                states.push_back(&newObj->Parse(combinedString));
             }
             else
             {
-                auto combinedString = CombineString(state.second);
-                states.push_back(&(new TAString())->Parse(combinedString));
+                std::vector<TAObject *> objects;
+                for (auto stateItem : state.second)
+                {
+                    TAObject* newObj;
+
+                    if (HasDeliminator(stateItem, '$'))
+                        newObj = new TAReference();
+                    else
+                        newObj = new TAString();
+
+                    objects.push_back(&newObj->Parse(stateItem));
+                }
+                states.push_back(&(new TAArray(objects))->Parse(defaultName, std::nullopt));
             }
         }
 

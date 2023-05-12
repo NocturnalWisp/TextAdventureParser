@@ -44,9 +44,9 @@ TAObject& TAScene::Parse(std::string& sceneName, OptionalMap m)
     if (desc != nullptr)
         std::cout << desc->getString() << std::endl;
     for (auto item : items)
-        std::cout << item->valid << item->getString() << std::endl;
+        std::cout << item->getString() << std::endl;
     for (auto exit : exits)
-        std::cout << std::get<1>(exit)->valid << std::get<0>(exit).str << std::get<1>(exit)->getString() << std::endl;
+        std::cout << std::get<0>(exit).str << " : " << std::get<1>(exit)->getString() << std::endl;
     std::cout << std::endl;
 
     valid = true;
@@ -121,15 +121,31 @@ void TAScene::getItems(OptionalMap m)
 
 void TAScene::getExits(OptionalMap m)
 {
+    std::vector<std::string> exitLines;
     HandleGrabLines<TAReference>(
         m.value(),
         { "exits" },
         { '%' },
         [&](auto item, auto delim)
             {
-                auto exit = &(new TAReference())->Parse(item);
-                exits.push_back(std::pair(TAString(), exit));
+                exitLines.push_back(item);
             },
         false
     );
+
+    if (exitLines.size() > 0)
+    {
+        auto exitHeaders = Parser::GetHeaders(
+            exitLines,
+            true,
+            3
+        );
+
+        for (auto exitHeader : exitHeaders)
+        {
+            auto exitReference = ltrim(exitHeader.second[0]);
+            auto exit = &(new TAReference())->Parse(exitReference);
+            exits.push_back(std::pair(exitHeader.first, exit));
+        }
+    }
 }
