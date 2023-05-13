@@ -1,5 +1,4 @@
-# % -> List
-# * -> State
+# % -> State
 # ^ -> Call external function.
 
 scenes:
@@ -34,7 +33,7 @@ items:
             A small branch fallen off a tree in the fall season.
         actions:
             combine branch & bread:
-                ^combine_items:
+                combine_items:
                     $self
                     $moldy bread
                     $bread on a stick
@@ -43,7 +42,7 @@ items:
             A small bit of bread.
         actions:
             combine bread & branch:
-                ^combine_items:
+                combine_items:
                     $self
                     $branch
                     $bread on a stick
@@ -52,14 +51,14 @@ items:
             A piece of bread on a stick.
         actions:
             eat:
-                ^destroy_item:
+                destroy_item:
                     $self
     stroller:
         desc:
             A small baby stroller with evil properties.
         actions:
             push stroller towards the volcano:
-                ^trigger_event:
+                trigger_event:
                     $volcano_erupt
         
 events:
@@ -67,6 +66,6 @@ events:
         desc:
             The volcano up the mountain from town starts to erupt. The townspeople have started to flee.
         actions:
-            ^change_state:
+            change_state:
                 $town
                 2

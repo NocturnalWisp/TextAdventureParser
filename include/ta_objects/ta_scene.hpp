@@ -17,8 +17,8 @@ public:
 public:
     TAObject* name;
     TAObject* desc = new TAString();
-    std::vector<TAObject*> items;
-    std::vector<std::tuple<TAString, TAObject*>> exits;
+    std::vector<TAReference*> items;
+    std::vector<std::tuple<TAString, TAReference*>> exits;
 
     size_t currentState = 0;
 
@@ -27,6 +27,7 @@ public:
     TAObject* Create() override;
 
     std::string& getString() override;
+    std::string getClass() override { return "TAScene"; }
 private:
     void getDescription(OptionalMap m);
     void getItems(OptionalMap m);

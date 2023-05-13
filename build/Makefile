@@ -595,6 +595,30 @@ src/parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TAP.dir/build.make CMakeFiles/TAP.dir/src/parser.cpp.s
 .PHONY : src/parser.cpp.s
 
+src/ta_item.obj: src/ta_item.cpp.obj
+.PHONY : src/ta_item.obj
+
+# target to build an object file
+src/ta_item.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TAP.dir/build.make CMakeFiles/TAP.dir/src/ta_item.cpp.obj
+.PHONY : src/ta_item.cpp.obj
+
+src/ta_item.i: src/ta_item.cpp.i
+.PHONY : src/ta_item.i
+
+# target to preprocess a source file
+src/ta_item.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TAP.dir/build.make CMakeFiles/TAP.dir/src/ta_item.cpp.i
+.PHONY : src/ta_item.cpp.i
+
+src/ta_item.s: src/ta_item.cpp.s
+.PHONY : src/ta_item.s
+
+# target to generate assembly for a file
+src/ta_item.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TAP.dir/build.make CMakeFiles/TAP.dir/src/ta_item.cpp.s
+.PHONY : src/ta_item.cpp.s
+
 src/ta_object.obj: src/ta_object.cpp.obj
 .PHONY : src/ta_object.obj
 
@@ -692,6 +716,9 @@ help:
 	@echo "... src/parser.obj"
 	@echo "... src/parser.i"
 	@echo "... src/parser.s"
+	@echo "... src/ta_item.obj"
+	@echo "... src/ta_item.i"
+	@echo "... src/ta_item.s"
 	@echo "... src/ta_object.obj"
 	@echo "... src/ta_object.i"
 	@echo "... src/ta_object.s"

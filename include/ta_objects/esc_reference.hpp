@@ -9,9 +9,12 @@ class TAReference : public TAObject
 public:
     TAReference(){}
     TAReference(std::string str) : str(str) {}
-    TAObject& Parse (std::string& str, OptionalMap m = std::nullopt) override;
 public:
     std::string str;
 
+    TAObject& Parse (std::string& str, OptionalMap m = std::nullopt) override;
+    TAObject* Create() override;
+
     std::string& getString() override;
+    std::string getClass() override;
 };

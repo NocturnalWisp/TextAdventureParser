@@ -7,8 +7,13 @@
 
 class TAEvent : public TAObject
 {
+private:
+    ~TAEvent()
+    {
+        delete name;
+    }
 public:
-    TAObject name;
+    TAObject* name;
 
     TAObject& Parse(std::string& str, OptionalMap m) override
     {
@@ -25,6 +30,11 @@ public:
 
     std::string& getString() override
     {
-        return name.getString();
+        return name->getString();
+    }
+
+    std::string getClass() override
+    {
+        return "TAEvent";
     }
 };

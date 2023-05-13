@@ -837,12 +837,12 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 CMakeFiles/TAP.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TAP.dir/build.make CMakeFiles/TAP.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TAP.dir/build.make CMakeFiles/TAP.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target TAP"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target TAP"
 .PHONY : CMakeFiles/TAP.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/TAP.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start E:/Hobby/TextAdventureParser/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start E:/Hobby/TextAdventureParser/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/TAP.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start E:/Hobby/TextAdventureParser/build/CMakeFiles 0
 .PHONY : CMakeFiles/TAP.dir/rule

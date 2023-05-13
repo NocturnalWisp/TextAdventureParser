@@ -19,6 +19,12 @@
 },
 {
   "directory": "E:/Hobby/TextAdventureParser/build",
+  "command": "C:/cygwin64/bin/g++.exe   -g -o CMakeFiles/TAP.dir/src/ta_item.cpp.obj -c E:/Hobby/TextAdventureParser/src/ta_item.cpp",
+  "file": "E:/Hobby/TextAdventureParser/src/ta_item.cpp",
+  "output": "CMakeFiles/TAP.dir/src/ta_item.cpp.obj"
+},
+{
+  "directory": "E:/Hobby/TextAdventureParser/build",
   "command": "C:/cygwin64/bin/g++.exe   -g -o CMakeFiles/TAP.dir/src/ta_object.cpp.obj -c E:/Hobby/TextAdventureParser/src/ta_object.cpp",
   "file": "E:/Hobby/TextAdventureParser/src/ta_object.cpp",
   "output": "CMakeFiles/TAP.dir/src/ta_object.cpp.obj"

@@ -22,6 +22,10 @@ public:
         return *this;
     }
 
+    TAObject* Create() override
+    {
+        return new TAArray({});
+    }
 
     std::string& getString() override
     {
@@ -31,6 +35,11 @@ public:
             str.append(object->getString() + "&");
         }
         return str;
+    }
+
+    std::string getClass() override
+    {
+        return "TAArray";
     }
 private:
     std::string str;

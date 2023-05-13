@@ -84,7 +84,7 @@ void TAScene::getDescription(OptionalMap m)
         );
 
         delete desc;
-        TAState* state = new TAState(currentState);
+        TAState* state = new TAState(&currentState);
         state->Parse(defaultName, stateHeaders);
         desc = state;
     }
@@ -100,7 +100,7 @@ void TAScene::getItems(OptionalMap m)
         [&](auto item, auto delim)
         {
             if (delim != '%')
-                items.push_back(&(new TAReference())->Parse(item));
+                items.push_back((TAReference*)&(new TAReference())->Parse(item));
             else
                 stateLines.push_back(item);
         },
@@ -115,7 +115,7 @@ void TAScene::getItems(OptionalMap m)
             3
         );
 
-        items.push_back(&(new TAState(currentState))->Parse(defaultName, stateHeaders));
+        items.push_back((TAReference*)&(new TAState(&currentState))->Parse(defaultName, stateHeaders));
     }
 }
 
@@ -144,7 +144,7 @@ void TAScene::getExits(OptionalMap m)
         for (auto exitHeader : exitHeaders)
         {
             auto exitReference = ltrim(exitHeader.second[0]);
-            auto exit = &(new TAReference())->Parse(exitReference);
+            auto exit = (TAReference*)&(new TAReference())->Parse(exitReference);
             exits.push_back(std::pair(exitHeader.first, exit));
         }
     }

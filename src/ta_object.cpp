@@ -5,12 +5,12 @@ TAObject& TAObject::Parse(std::string& str, OptionalMap m)
     return *this;
 }
 
-TAObject* TAObject::Create()
-{
-    return new TAObject;
-}
-
 std::string& TAObject::getString()
 {
     return defaultName;
+}
+
+std::string TAObject::getClass()
+{
+    return "TAObject";
 }

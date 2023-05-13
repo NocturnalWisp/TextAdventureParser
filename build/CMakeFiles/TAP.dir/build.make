@@ -111,10 +111,24 @@ CMakeFiles/TAP.dir/src/parser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TAP.dir/src/parser.cpp.s"
 	C:/cygwin64/bin/g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:/Hobby/TextAdventureParser/src/parser.cpp -o CMakeFiles/TAP.dir/src/parser.cpp.s
 
+CMakeFiles/TAP.dir/src/ta_item.cpp.obj: CMakeFiles/TAP.dir/flags.make
+CMakeFiles/TAP.dir/src/ta_item.cpp.obj: E:/Hobby/TextAdventureParser/src/ta_item.cpp
+CMakeFiles/TAP.dir/src/ta_item.cpp.obj: CMakeFiles/TAP.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TAP.dir/src/ta_item.cpp.obj"
+	C:/cygwin64/bin/g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TAP.dir/src/ta_item.cpp.obj -MF CMakeFiles/TAP.dir/src/ta_item.cpp.obj.d -o CMakeFiles/TAP.dir/src/ta_item.cpp.obj -c E:/Hobby/TextAdventureParser/src/ta_item.cpp
+
+CMakeFiles/TAP.dir/src/ta_item.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TAP.dir/src/ta_item.cpp.i"
+	C:/cygwin64/bin/g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:/Hobby/TextAdventureParser/src/ta_item.cpp > CMakeFiles/TAP.dir/src/ta_item.cpp.i
+
+CMakeFiles/TAP.dir/src/ta_item.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TAP.dir/src/ta_item.cpp.s"
+	C:/cygwin64/bin/g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:/Hobby/TextAdventureParser/src/ta_item.cpp -o CMakeFiles/TAP.dir/src/ta_item.cpp.s
+
 CMakeFiles/TAP.dir/src/ta_object.cpp.obj: CMakeFiles/TAP.dir/flags.make
 CMakeFiles/TAP.dir/src/ta_object.cpp.obj: E:/Hobby/TextAdventureParser/src/ta_object.cpp
 CMakeFiles/TAP.dir/src/ta_object.cpp.obj: CMakeFiles/TAP.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TAP.dir/src/ta_object.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TAP.dir/src/ta_object.cpp.obj"
 	C:/cygwin64/bin/g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TAP.dir/src/ta_object.cpp.obj -MF CMakeFiles/TAP.dir/src/ta_object.cpp.obj.d -o CMakeFiles/TAP.dir/src/ta_object.cpp.obj -c E:/Hobby/TextAdventureParser/src/ta_object.cpp
 
 CMakeFiles/TAP.dir/src/ta_object.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/TAP.dir/src/ta_object.cpp.s: cmake_force
 CMakeFiles/TAP.dir/src/ta_scene.cpp.obj: CMakeFiles/TAP.dir/flags.make
 CMakeFiles/TAP.dir/src/ta_scene.cpp.obj: E:/Hobby/TextAdventureParser/src/ta_scene.cpp
 CMakeFiles/TAP.dir/src/ta_scene.cpp.obj: CMakeFiles/TAP.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TAP.dir/src/ta_scene.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TAP.dir/src/ta_scene.cpp.obj"
 	C:/cygwin64/bin/g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TAP.dir/src/ta_scene.cpp.obj -MF CMakeFiles/TAP.dir/src/ta_scene.cpp.obj.d -o CMakeFiles/TAP.dir/src/ta_scene.cpp.obj -c E:/Hobby/TextAdventureParser/src/ta_scene.cpp
 
 CMakeFiles/TAP.dir/src/ta_scene.cpp.i: cmake_force
@@ -144,6 +158,7 @@ TAP_OBJECTS = \
 "CMakeFiles/TAP.dir/main.cpp.obj" \
 "CMakeFiles/TAP.dir/src/esc_reference.cpp.obj" \
 "CMakeFiles/TAP.dir/src/parser.cpp.obj" \
+"CMakeFiles/TAP.dir/src/ta_item.cpp.obj" \
 "CMakeFiles/TAP.dir/src/ta_object.cpp.obj" \
 "CMakeFiles/TAP.dir/src/ta_scene.cpp.obj"
 
@@ -153,12 +168,13 @@ TAP_EXTERNAL_OBJECTS =
 TAP.exe: CMakeFiles/TAP.dir/main.cpp.obj
 TAP.exe: CMakeFiles/TAP.dir/src/esc_reference.cpp.obj
 TAP.exe: CMakeFiles/TAP.dir/src/parser.cpp.obj
+TAP.exe: CMakeFiles/TAP.dir/src/ta_item.cpp.obj
 TAP.exe: CMakeFiles/TAP.dir/src/ta_object.cpp.obj
 TAP.exe: CMakeFiles/TAP.dir/src/ta_scene.cpp.obj
 TAP.exe: CMakeFiles/TAP.dir/build.make
 TAP.exe: CMakeFiles/TAP.dir/linkLibs.rsp
 TAP.exe: CMakeFiles/TAP.dir/objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable TAP.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:/Hobby/TextAdventureParser/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable TAP.exe"
 	"C:/Program Files/CMake/bin/cmake.exe" -E rm -f CMakeFiles/TAP.dir/objects.a
 	C:/cygwin64/bin/ar.exe qc CMakeFiles/TAP.dir/objects.a @CMakeFiles/TAP.dir/objects1.rsp
 	C:/cygwin64/bin/g++.exe -g -Wl,--whole-archive CMakeFiles/TAP.dir/objects.a -Wl,--no-whole-archive -o TAP.exe -Wl,--out-implib,libTAP.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/TAP.dir/linkLibs.rsp

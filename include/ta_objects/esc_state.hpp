@@ -11,12 +11,13 @@
 class TAState : public TAObject
 {
 public:
-    TAState(size_t& currentState) : currentState(currentState)
+    TAState(size_t* currentState) : currentState(currentState)
     {
     }
 
     ~TAState()
     {
+        delete currentState;
         for (auto state : states)
         {
             delete state;
@@ -25,7 +26,7 @@ public:
     }
 public:
     std::vector<TAObject *> states;
-    size_t& currentState;
+    size_t* currentState;
 
     TAObject& Parse(std::string&, OptionalMap m = std::nullopt) override
     {
@@ -68,10 +69,20 @@ public:
         return *this;
     }
 
+    TAObject* Create() override
+    {
+        return new TAState(NULL);
+    }
+
     std::string& getString() override
     {
-        return states.size() > 0
-            ? states[currentState]->getString()
+        return states.size() > 0 && currentState != NULL
+            ? states[*currentState]->getString()
             : defaultName;
+    }
+
+    std::string getClass() override
+    {
+        return "TAState";
     }
 };

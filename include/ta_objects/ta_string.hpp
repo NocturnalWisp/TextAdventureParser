@@ -18,8 +18,18 @@ public:
         return *this;
     }
 
+    TAObject* Create() override
+    {
+        return new TAString;
+    }
+
     std::string& getString() override
     {
         return str;
+    }
+
+    std::string getClass() override
+    {
+        return "TAString";
     }
 };

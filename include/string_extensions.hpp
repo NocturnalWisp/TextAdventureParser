@@ -75,7 +75,7 @@ namespace
         std::string newString;
         for (char c : og)
         {
-            if (std::isalnum(c))
+            if (std::isalnum(c) || c == ' ' || c == '_' || c == '-')
                 newString.push_back(c);
         }
 
@@ -86,9 +86,16 @@ namespace
     {
         std::string first, second;
         bool doneFirst = false;
+        bool foundFirstAlphaNum = false;
         for (char c : og)
         {
-            if (truncate && c == ' ')
+            if (std::isalnum(c) && !foundFirstAlphaNum)
+                foundFirstAlphaNum = true;
+
+            if (truncate && (c == ' ' && !foundFirstAlphaNum))
+                continue;
+
+            if (!std::isalnum(c) && c != ' ' && c != '_' && c != '-')
                 continue;
 
             if (c == deliminator)

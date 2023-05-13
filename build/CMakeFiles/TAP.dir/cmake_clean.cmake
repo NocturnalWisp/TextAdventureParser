@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/TAP.dir/src/esc_reference.cpp.obj.d"
   "CMakeFiles/TAP.dir/src/parser.cpp.obj"
   "CMakeFiles/TAP.dir/src/parser.cpp.obj.d"
+  "CMakeFiles/TAP.dir/src/ta_item.cpp.obj"
+  "CMakeFiles/TAP.dir/src/ta_item.cpp.obj.d"
   "CMakeFiles/TAP.dir/src/ta_object.cpp.obj"
   "CMakeFiles/TAP.dir/src/ta_object.cpp.obj.d"
   "CMakeFiles/TAP.dir/src/ta_scene.cpp.obj"

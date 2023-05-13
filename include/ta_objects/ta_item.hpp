@@ -4,27 +4,24 @@
 #include <string>
 
 #include "../ta_object.hpp"
+#include "ta_action.hpp"
 
 class TAItem : public TAObject
 {
 public:
-    TAObject name;
+    ~TAItem();
+public:
+    TAObject* name;
+    TAObject* desc = new TAString();
+    std::vector<TAAction*> actions;
 
-    TAObject& Parse(std::string& str, OptionalMap m) override
-    {
-        // for (auto s : items)
-            // std::cout << s << std::endl;
+    TAObject& Parse(std::string& str, OptionalMap m) override;
 
-        return *this;
-    }
+    TAObject* Create() override;
 
-    TAObject* Create() override
-    {
-        return new TAItem;
-    };
-
-    std::string& getString() override
-    {
-        return name.getString();
-    }
+    std::string& getString() override;
+    std::string getClass() override;
+private:
+    void getDescription(OptionalMap m);
+    void getActions(OptionalMap m);
 };
