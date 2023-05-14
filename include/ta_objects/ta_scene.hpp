@@ -17,7 +17,7 @@ public:
 public:
     TAObject* name;
     TAObject* desc = new TAString();
-    std::vector<TAReference*> items;
+    std::vector<TAObject*> items;
     std::vector<std::tuple<TAString, TAReference*>> exits;
 
     size_t currentState = 0;

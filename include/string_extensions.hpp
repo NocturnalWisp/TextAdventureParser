@@ -86,16 +86,13 @@ namespace
     {
         std::string first, second;
         bool doneFirst = false;
-        bool foundFirstAlphaNum = false;
+        bool foundFirstChar = false;
         for (char c : og)
         {
-            if (std::isalnum(c) && !foundFirstAlphaNum)
-                foundFirstAlphaNum = true;
+            if (truncate && !foundFirstChar && c != 0 && c != ' ')
+                foundFirstChar = true;
 
-            if (truncate && (c == ' ' && !foundFirstAlphaNum))
-                continue;
-
-            if (!std::isalnum(c) && c != ' ' && c != '_' && c != '-')
+            if (truncate && !foundFirstChar)
                 continue;
 
             if (c == deliminator)

@@ -115,7 +115,7 @@ void TAScene::getItems(OptionalMap m)
             3
         );
 
-        items.push_back((TAReference*)&(new TAState(&currentState))->Parse(defaultName, stateHeaders));
+        items.push_back((TAState*)&(new TAState(&currentState))->Parse(defaultName, stateHeaders));
     }
 }
 
