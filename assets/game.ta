@@ -59,10 +59,10 @@ items:
         actions:
             push stroller towards the volcano:
                 trigger_event:
-                    $volcano_erupt
+                    $volcano erupt
         
 events:
-    volcano_erupt:
+    volcano erupt:
         desc:
             The volcano up the mountain from town starts to erupt. The townspeople have started to flee.
         actions:

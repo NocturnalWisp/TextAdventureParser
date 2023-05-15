@@ -79,7 +79,7 @@
 			"string_view": "cpp",
 			"numbers": "cpp"
 		},
-		"cmake.sourceDirectory": "E:/Hobby/TextAdventureParser",
+		"cmake.sourceDirectory": "${workspaceFolder}",
 		"search.exclude": {
 			"build": true
 		}
