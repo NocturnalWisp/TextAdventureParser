@@ -5,8 +5,9 @@
 #include <algorithm>
 
 #include "../ta_object.hpp"
-#include "esc_reference.hpp"
-#include "esc_state.hpp"
+#include "ta_reference.hpp"
+#include "ta_state.hpp"
+#include "ta_string.hpp"
 
 #include "../string_extensions.hpp"
 

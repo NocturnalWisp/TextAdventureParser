@@ -5,18 +5,13 @@
 
 #include "../ta_object.hpp"
 #include "../string_extensions.hpp"
+#include "ta_reference.hpp"
+#include "ta_string.hpp"
 
 class TAAction : public TAObject
 {
 public:
-    ~TAAction()
-    {
-        delete statement;
-        delete functionName;
-        for (auto arg : arguments)
-            delete arg;
-        arguments.clear();
-    }
+    ~TAAction();
 private:
     std::string str;
 public:
@@ -24,31 +19,13 @@ public:
     TAObject* functionName;
     std::vector<TAObject *> arguments;
 
-    TAObject& Parse(std::string& str, OptionalMap m) override
-    {
-        valid = true;
-        return *this;
-    }
+    TAObject& Parse(std::string& str, OptionalMap m);
 
-    TAObject* Create() override
-    {
-        return new TAAction;
-    }
+    TAObject& Parse(std::pair<std::string, std::vector<std::string>> action);
 
-    std::string& getString() override
-    {
-        str = statement->getString() + " : " +
-            functionName->getString() + "(";
-        for (auto arg : arguments)
-        {
-            str.append(arg->getString() + ", ");
-        }
-        str.append("\b\b)");
-        return str;
-    }
+    TAObject* Create() override;
 
-    std::string getClass() override
-    {
-        return "TAAction";
-    }
+    std::string& getString() override;
+
+    std::string getClass() override;
 };

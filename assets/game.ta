@@ -66,6 +66,7 @@ events:
         desc:
             The volcano up the mountain from town starts to erupt. The townspeople have started to flee.
         actions:
-            change_state:
-                $town
-                2
+            1:
+                change_state:
+                    $town
+                    2

@@ -9,38 +9,17 @@
 class TAArray : public TAObject
 {
 public:
-    TAArray(std::vector<TAObject *> objects) : objects(objects)
-    {
-
-    }
+    TAArray(std::vector<TAObject *> objects);
 public:
     std::vector<TAObject *> objects;
 
-    TAObject& Parse(std::string& str, OptionalMap m) override
-    {
-        valid = true;
-        return *this;
-    }
+    TAObject& Parse(std::string& str, OptionalMap m) override;
 
-    TAObject* Create() override
-    {
-        return new TAArray({});
-    }
+    TAObject* Create() override;
 
-    std::string& getString() override
-    {
-        str = "%";
-        for (auto object : objects)
-        {
-            str.append(object->getString() + "&");
-        }
-        return str;
-    }
+    std::string& getString() override;
 
-    std::string getClass() override
-    {
-        return "TAArray";
-    }
+    std::string getClass() override;
 private:
     std::string str;
 };

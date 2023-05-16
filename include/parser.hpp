@@ -1,6 +1,11 @@
 #pragma once
 
 #include <map>
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "../include/string_extensions.hpp"
 
 #include "text_adventure.hpp"
 

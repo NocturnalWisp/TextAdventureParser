@@ -1,8 +1,3 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
-#include "../include/string_extensions.hpp"
 #include "../include/parser.hpp"
 
 Parser::Parser() {}

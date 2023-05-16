@@ -1,6 +1,8 @@
-#include "../include/parser.hpp"
+#include "../../include/ta_objects/ta_item.hpp"
 
-TAEvent::~TAEvent()
+#include "../../include/parser.hpp"
+
+TAItem::~TAItem()
 {
     delete name;
     delete desc;
@@ -10,22 +12,22 @@ TAEvent::~TAEvent()
     actions.clear();
 }
 
-TAObject* TAEvent::Create()
+TAObject* TAItem::Create()
 {
-    return new TAEvent;
+    return new TAItem;
 };
 
-std::string& TAEvent::getString()
+std::string& TAItem::getString()
 {
     return name->getString();
 }
 
-std::string TAEvent::getClass()
+std::string TAItem::getClass()
 {
-    return "TAEvent";
+    return "TAItem";
 }
 
-TAObject& TAEvent::Parse(std::string& itemName, OptionalMap m)
+TAObject& TAItem::Parse(std::string& itemName, OptionalMap m)
 {
     if (!m.has_value())
     {
@@ -51,7 +53,7 @@ TAObject& TAEvent::Parse(std::string& itemName, OptionalMap m)
     return *this;
 };
 
-void TAEvent::getDescription(OptionalMap m)
+void TAItem::getDescription(OptionalMap m)
 {
     HandleGrabLines<std::string>(
         m.value(),
@@ -65,7 +67,7 @@ void TAEvent::getDescription(OptionalMap m)
     );
 }
 
-void TAEvent::getActions(OptionalMap m)
+void TAItem::getActions(OptionalMap m)
 {
     std::vector<std::string> actionLines;
     HandleGrabLines<std::string>(
@@ -89,29 +91,9 @@ void TAEvent::getActions(OptionalMap m)
 
         for (auto actionHeader : actionHeaders)
         {
-            auto functionHeaders = Parser::GetHeaders(
-                actionHeader.second,
-                true,
-                4
-            );
-
-
             TAAction* action = new TAAction();
-            action->statement = new TAString(actionHeader.first);
-            action->functionName = new TAString(std::get<0>(SpliceString(actionHeader.second[0], ':', true)));
 
-            for (int i = 1; i < actionHeader.second.size(); i++)
-            {
-                auto arg = ltrim(actionHeader.second[i]);
-                if (arg[0] == '$')
-                {
-                    action->arguments.push_back(&(new TAReference())->Parse(arg));
-                }
-                else
-                {
-                    action->arguments.push_back(&(new TAString())->Parse(arg));
-                }
-            }
+            action->Parse(actionHeader);
 
             actions.push_back(action);
         }

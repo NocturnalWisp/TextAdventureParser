@@ -5,14 +5,12 @@
 
 #include "../ta_object.hpp"
 #include "ta_action.hpp"
+#include "ta_string.hpp"
 
 class TAEvent : public TAObject
 {
 private:
-    ~TAEvent()
-    {
-        delete name;
-    }
+    ~TAEvent();
 public:
     TAObject* name;
     TAObject* desc = new TAString();

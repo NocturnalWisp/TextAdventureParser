@@ -1,4 +1,6 @@
-#include "../include/parser.hpp"
+#include "../../include/ta_objects/ta_scene.hpp"
+
+#include "../../include/parser.hpp"
 
 TAScene::~TAScene()
 {
