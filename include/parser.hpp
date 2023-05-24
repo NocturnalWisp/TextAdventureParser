@@ -14,6 +14,8 @@
 #include "ta_objects/ta_item.hpp"
 #include "ta_objects/ta_event.hpp"
 
+#include "ta_exceptions/ta_parse_exception.hpp"
+
 class TAScene;
 
 class Parser

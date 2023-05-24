@@ -7,6 +7,8 @@
 #include "include/parser.hpp"
 #include "include/string_extensions.hpp"
 
+#include "include/ta_exceptions/ta_parse_exception.hpp"
+
 int main(int , char *[])
 {
     std::unique_ptr<Parser> parser = std::unique_ptr<Parser>(new Parser());
@@ -16,7 +18,15 @@ int main(int , char *[])
     buffer << stream.rdbuf();
     std::string gameString = buffer.str();
 
-    TextAdventure TextAdventure = parser->Parse(gameString);
+    try
+    {
+        TextAdventure TextAdventure = parser->Parse(gameString);
+    }
+    catch(const tap::ParseException& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    
 
     return 0;
 }

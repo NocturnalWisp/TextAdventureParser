@@ -8,6 +8,9 @@ TextAdventure Parser::Parse(std::string& file)
 
     std::vector lines = GetLines(file);
 
+    if (lines.size() == 0)
+        throw tap::ParseException("Empty file, nothing to parse.", 0, 0);
+
     // (Scenes, Items, Events, etc...)
     auto headers = GetHeaders(lines, true);
 
