@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef DEBUGTAP
+#define DEBUGTAP
+#endif
+
 #include <map>
 #include <iostream>
 #include <string>

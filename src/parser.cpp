@@ -19,6 +19,7 @@ TextAdventure Parser::Parse(std::string& file)
 
     for (auto header : headers)
     {
+        bool foundHeader = false;
         for (auto strategy : parseStrategies)
         {
             if (header.first.compare(strategy.first) == 0)
@@ -26,7 +27,6 @@ TextAdventure Parser::Parse(std::string& file)
                 // (Individual objects)
                 startHeaderLine = header.second.first;
                 auto taObjHeader = GetHeaders(header.second.second, true, 1);
-                std::cout << header.first << ": " << header.second.first << std::endl;
 
                 for (auto headerForObject : taObjHeader)
                 {
@@ -41,8 +41,24 @@ TextAdventure Parser::Parse(std::string& file)
                     delete strategy.second;
                     strategy.second = newStrat;
                 }
+                foundHeader = true;
+                break;
             }
         }
+        
+#ifdef DEBUGTAP
+        if (!foundHeader)
+        {
+            std::string errorMsg = "Failed to interpret header \"" + RemoveDeliminators(header.first) + "\". Main headers allowed: ";
+            for (auto strat : parseStrategies)
+            {
+                errorMsg.append(strat.first + ", ");
+            }
+            errorMsg = errorMsg.substr(0, errorMsg.size()-2);
+            errorMsg.append(".");
+            throw tap::ParseException(errorMsg, header.second.first, 0);
+        }
+#endif
     }
 
     return textAdventure;
@@ -60,14 +76,14 @@ HeaderMap Parser::GetHeaders(LineList& lines, bool applyColonRemoval, int indent
     size_t headerLineNumber;
     for (auto line : lines)
     {
-        if (line.second[0] == '#' || line.second[0] == 0)
-            continue;
-
-        if (line.second[indentCount*4] == ' ' && inLineHeader)
+        if (inLineHeader && line.second[indentCount*4] == ' ')
         {
             internalLines.push_back(line);
             continue;
         }
+
+        if (ltrim(line.second)[0] == '#' || RemoveDeliminators(line.second).size() == 0)
+            continue;
 
         if (inLineHeader)
         {
