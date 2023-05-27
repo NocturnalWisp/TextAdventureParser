@@ -34,7 +34,7 @@ public:
 
 public:
     TextAdventure Parse(std::string& file);
-    static HeaderMap GetHeaders(std::vector<std::string>&, bool applyColonRemoval = false, int indentCount = 0);
+    static HeaderMap GetHeaders(LineList&, bool applyColonRemoval = false, int indentCount = 0);
 
     static size_t startHeaderLine;
 

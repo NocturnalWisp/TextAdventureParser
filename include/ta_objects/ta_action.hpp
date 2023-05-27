@@ -21,7 +21,7 @@ public:
 
     TAObject& Parse(std::string& str, OptionalMap m);
 
-    TAObject& Parse(std::pair<std::string, std::pair<size_t, std::vector<std::string>>> action);
+    TAObject& Parse(std::pair<std::string, std::pair<size_t, LineList>> action);
 
     TAObject* Create() override;
 

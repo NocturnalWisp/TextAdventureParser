@@ -69,14 +69,16 @@ void TAItem::getDescription(OptionalMap m)
 
 void TAItem::getActions(OptionalMap m)
 {
-    std::vector<std::string> actionLines;
+    size_t actionLinesNumber;
+    LineList actionLines;
     HandleGrabLines(
         m.value(),
         { "action", "actions" },
         {},
-        [&](auto item, auto delim)
+        [&](auto item, auto headerInfo)
             {
-                actionLines.push_back(item.second);
+                actionLinesNumber = headerInfo.first;
+                actionLines.push_back(item);
             },
             false
     );

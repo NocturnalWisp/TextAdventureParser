@@ -70,15 +70,15 @@ void TAEvent::getDescription(OptionalMap m)
 void TAEvent::getActions(OptionalMap m)
 {
     size_t actionLinesNumber;
-    std::vector<std::string> actionLines;
+    LineList actionLines;
     HandleGrabLines(
         m.value(),
         { "action", "actions" },
         {},
-        [&](auto item, auto delim)
+        [&](auto item, auto headerInfo)
             {
-                actionLinesNumber = item.first;
-                actionLines.push_back(item.second);
+                actionLinesNumber = headerInfo.first;
+                actionLines.push_back(item);
             },
             false
     );

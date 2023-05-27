@@ -6,7 +6,8 @@
 #include <optional>
 #include <memory>
 
-using OptionalMap = std::optional<std::map<std::string, std::pair<size_t, std::vector<std::string>>>>;
+using LineList = std::vector<std::pair<size_t, std::string>>;
+using OptionalMap = std::optional<std::map<std::string, std::pair<size_t, LineList>>>;
 
 class TAObject
 {

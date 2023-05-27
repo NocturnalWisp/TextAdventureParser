@@ -10,22 +10,25 @@
 
 #include "ta_objects/ta_string.hpp"
 
-using HeaderMap = std::map<std::string, std::pair<size_t, std::vector<std::string>>>;
+using HeaderMap = std::map<std::string, std::pair<size_t, std::vector<std::pair<size_t, std::string>>>>;
 
 using HeaderMapIt = typename HeaderMap::const_iterator;
 
 namespace
 {
-    std::vector<std::string> GetLines(std::string& file)
+    std::vector<std::pair<size_t, std::string>> GetLines(std::string& file)
     {
-        std::vector<std::string> lines;
+        std::vector<std::pair<size_t, std::string>> lines;
         std::string str = std::string();
+
+        size_t lineNumber = 0;
         for (char c : file)
         {
             if (c == '\n')
             {
-                lines.push_back(str);
+                lines.push_back(std::pair(lineNumber, str));
                 str = std::string();
+                lineNumber++;
             }
             else
             {
@@ -147,7 +150,7 @@ namespace
     void HandleGrabLines(HeaderMap const& m,
         std::vector<std::string> keys,
         std::vector<char> allowedDelims,
-        std::function<void(std::pair<size_t, std::string>, char)> handleAppend,
+        std::function<void(std::pair<size_t, std::string>, std::pair<size_t, char>)> handleAppend,
         bool trim = true)
     {
         auto usedDelim = ' ';
@@ -167,11 +170,11 @@ namespace
         {
             if (trim)
             {
-                auto trimmed = ltrim(line);
-                handleAppend(std::pair(header->second.first, trimmed), usedDelim);
+                auto trimmed = ltrim(line.second);
+                handleAppend(std::pair(line.first, trimmed), std::pair(header->second.first, usedDelim));
             }
             else
-                handleAppend(std::pair(header->second.first, line), usedDelim);
+                handleAppend(std::pair(line.first, line.second), std::pair(header->second.first, usedDelim));
         }
     }
 
@@ -197,25 +200,31 @@ namespace
         list.push_back(item);
     }
 
-    std::string CombineString(std::vector<std::string>& list)
+    std::string CombineString(LineList& list)
     {
-        return ltrim(std::accumulate(
-        std::next(list.begin()), 
-        list.end(), 
-        list[0], 
-        [](std::string a, std::string b) {
-            return ltrim(a) + "\n" + ltrim(b);
-        }));
+        std::string result;
+        for (int i = 0; i < list.size(); i++)
+        {
+            result.append(ltrim(list[i].second));
+            if (i < list.size()-1)
+            {
+                result.append("\n");
+            }
+        }
+        return result;
     }
 
-    std::string CombineString(std::vector<std::string> const& list)
+    std::string CombineString(LineList const& list)
     {
-        return ltrim(std::accumulate(
-        std::next(list.begin()), 
-        list.end(), 
-        list[0], 
-        [](std::string a, std::string b) {
-            return ltrim(a) + ltrim(b);
-        }));
+        std::string result;
+        for (int i = 0; i < list.size(); i++)
+        {
+            result.append(ltrim(list[i].second));
+            if (i < list.size()-1)
+            {
+                result.append("\n");
+            }
+        }
+        return result;
     }
 }

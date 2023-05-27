@@ -58,21 +58,21 @@ TAObject& TAScene::Parse(std::string& sceneName, OptionalMap m)
 void TAScene::getDescription(OptionalMap m)
 {
     size_t stateLinesNumber;
-    std::vector<std::string> stateLines;
+    LineList stateLines;
     HandleGrabLines(
         m.value(),
         { "description", "desc" },
         { '%' },
-        [&](auto item, auto delim)
+        [&](auto item, auto headerInfo)
             {
-                if (delim != '%')
+                if (headerInfo.second != '%')
                 {
                     desc->getString().append(ltrim(item.second));
                 }
                 else
                 {
-                    stateLinesNumber = item.first;
-                    stateLines.push_back(item.second);
+                    stateLinesNumber = headerInfo.first;
+                    stateLines.push_back(item);
                 }
             },
             false
@@ -98,19 +98,19 @@ void TAScene::getDescription(OptionalMap m)
 void TAScene::getItems(OptionalMap m)
 {
     size_t stateLinesNumber;
-    std::vector<std::string> stateLines;
+    LineList stateLines;
     HandleGrabLines(
         m.value(),
         { "items" },
         { '%' },
-        [&](auto item, auto delim)
+        [&](auto item, auto headerInfo)
         {
-            if (delim != '%')
+            if (headerInfo.second != '%')
                 items.push_back((TAReference*)&(new TAReference())->Parse(item.second));
             else
             {
-                stateLinesNumber = item.first;
-                stateLines.push_back(item.second);
+                stateLinesNumber = headerInfo.first;
+                stateLines.push_back(item);
             }
         },
         false
@@ -132,15 +132,15 @@ void TAScene::getItems(OptionalMap m)
 void TAScene::getExits(OptionalMap m)
 {
     size_t exitLinesNumber;
-    std::vector<std::string> exitLines;
+    LineList exitLines;
     HandleGrabLines(
         m.value(),
         { "exits" },
         { '%' },
-        [&](auto item, auto delim)
+        [&](auto item, auto headerInfo)
             {
-                exitLinesNumber = item.first;
-                exitLines.push_back(item.second);
+                exitLinesNumber = headerInfo.first;
+                exitLines.push_back(item);
             },
         false
     );
@@ -156,7 +156,7 @@ void TAScene::getExits(OptionalMap m)
 
         for (auto exitHeader : exitHeaders)
         {
-            auto exitReference = ltrim(exitHeader.second.second[0]);
+            auto exitReference = ltrim(exitHeader.second.second[0].second);
             auto exit = (TAReference*)&(new TAReference())->Parse(exitReference);
             exits.push_back(std::pair(exitHeader.first, exit));
         }

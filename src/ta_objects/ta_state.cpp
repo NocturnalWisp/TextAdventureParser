@@ -24,7 +24,7 @@ TAObject& TAState::Parse(std::string&, OptionalMap m)
         if (ltrim(state.first)[0] != '%')
         {
             TAObject* newObj;
-            if (HasDeliminator(state.second.second[0], '$'))
+            if (HasDeliminator(state.second.second[0].second, '$'))
                 newObj = new TAReference();
             else
                 newObj = new TAString();
@@ -39,12 +39,12 @@ TAObject& TAState::Parse(std::string&, OptionalMap m)
             {
                 TAObject* newObj;
 
-                if (HasDeliminator(stateItem, '$'))
+                if (HasDeliminator(stateItem.second, '$'))
                     newObj = new TAReference();
                 else
                     newObj = new TAString();
 
-                objects.push_back(&newObj->Parse(stateItem));
+                objects.push_back(&newObj->Parse(stateItem.second));
             }
             states.push_back(&(new TAArray(objects))->Parse(defaultName, std::nullopt));
         }
