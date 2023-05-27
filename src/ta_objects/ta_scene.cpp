@@ -59,7 +59,7 @@ void TAScene::getDescription(OptionalMap m)
 {
     size_t stateLinesNumber;
     std::vector<std::string> stateLines;
-    HandleGrabLines<std::string>(
+    HandleGrabLines(
         m.value(),
         { "description", "desc" },
         { '%' },
@@ -99,7 +99,7 @@ void TAScene::getItems(OptionalMap m)
 {
     size_t stateLinesNumber;
     std::vector<std::string> stateLines;
-    HandleGrabLines<TAReference>(
+    HandleGrabLines(
         m.value(),
         { "items" },
         { '%' },
@@ -133,7 +133,7 @@ void TAScene::getExits(OptionalMap m)
 {
     size_t exitLinesNumber;
     std::vector<std::string> exitLines;
-    HandleGrabLines<TAReference>(
+    HandleGrabLines(
         m.value(),
         { "exits" },
         { '%' },

@@ -55,7 +55,7 @@ TAObject& TAItem::Parse(std::string& itemName, OptionalMap m)
 
 void TAItem::getDescription(OptionalMap m)
 {
-    HandleGrabLines<std::string>(
+    HandleGrabLines(
         m.value(),
         { "description", "desc" },
         {},
@@ -70,7 +70,7 @@ void TAItem::getDescription(OptionalMap m)
 void TAItem::getActions(OptionalMap m)
 {
     std::vector<std::string> actionLines;
-    HandleGrabLines<std::string>(
+    HandleGrabLines(
         m.value(),
         { "action", "actions" },
         {},

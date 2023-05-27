@@ -17,11 +17,11 @@ TAObject* TAArray::Create()
 
 std::string& TAArray::getString()
 {
-    str = "%";
     for (auto object : objects)
     {
-        str.append(object->getString() + "&");
+        str.append(object->getString() + ", ");
     }
+    str = str.substr(0, str.size()-2);
     return str;
 }
 

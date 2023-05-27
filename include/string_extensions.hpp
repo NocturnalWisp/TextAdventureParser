@@ -118,7 +118,7 @@ namespace
         HeaderMapIt last,
         std::vector<std::string> const& keys,
         char& usedDelim,
-        char allowedDelim = ' ')
+        std::vector<char> allowedDelims = std::vector<char>())
     {
         for (; first != last; ++first)
         {
@@ -127,11 +127,16 @@ namespace
                 if (keys[key].compare(first->first) == 0)
                     return first;
                 
-                if (allowedDelim != ' ' &&
-                    (allowedDelim + keys[key]).compare(first->first) == 0)
+                if (allowedDelims.size() > 0)
                 {
-                    usedDelim = allowedDelim;
-                    return first;
+                    for (char allowedDelim : allowedDelims)
+                    {
+                        if ((allowedDelim + keys[key]).compare(first->first) == 0)
+                        {
+                            usedDelim = allowedDelim;
+                            return first;
+                        }
+                    }
                 }
             }
         }
@@ -139,16 +144,15 @@ namespace
     }
 
     // Uses the find for to grab the contents of headers found by keys.
-    template <typename TAObj>
     void HandleGrabLines(HeaderMap const& m,
         std::vector<std::string> keys,
-        char allowedDelims,
+        std::vector<char> allowedDelims,
         std::function<void(std::pair<size_t, std::string>, char)> handleAppend,
         bool trim = true)
     {
         auto usedDelim = ' ';
         auto header = FindFor
-            (m.begin(), m.end(), keys, allowedDelims, usedDelim);
+            (m.begin(), m.end(), keys, usedDelim, allowedDelims);
         
         if (header == m.end())
         {

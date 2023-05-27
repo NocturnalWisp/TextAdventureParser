@@ -55,7 +55,7 @@ TAObject& TAEvent::Parse(std::string& itemName, OptionalMap m)
 
 void TAEvent::getDescription(OptionalMap m)
 {
-    HandleGrabLines<std::string>(
+    HandleGrabLines(
         m.value(),
         { "description", "desc" },
         {},
@@ -71,7 +71,7 @@ void TAEvent::getActions(OptionalMap m)
 {
     size_t actionLinesNumber;
     std::vector<std::string> actionLines;
-    HandleGrabLines<std::string>(
+    HandleGrabLines(
         m.value(),
         { "action", "actions" },
         {},
