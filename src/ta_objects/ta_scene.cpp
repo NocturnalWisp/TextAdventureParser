@@ -57,6 +57,7 @@ TAObject& TAScene::Parse(std::string& sceneName, OptionalMap m)
 
 void TAScene::getDescription(OptionalMap m)
 {
+    size_t stateLinesNumber;
     std::vector<std::string> stateLines;
     HandleGrabLines<std::string>(
         m.value(),
@@ -66,11 +67,12 @@ void TAScene::getDescription(OptionalMap m)
             {
                 if (delim != '%')
                 {
-                    desc->getString().append(ltrim(item));
+                    desc->getString().append(ltrim(item.second));
                 }
                 else
                 {
-                    stateLines.push_back(item);
+                    stateLinesNumber = item.first;
+                    stateLines.push_back(item.second);
                 }
             },
             false
@@ -79,6 +81,7 @@ void TAScene::getDescription(OptionalMap m)
     if (stateLines.size() > 0)
     {
         // Use state to represent the data.
+        Parser::startHeaderLine = stateLinesNumber;
         auto stateHeaders = Parser::GetHeaders(
             stateLines,
             false,
@@ -94,6 +97,7 @@ void TAScene::getDescription(OptionalMap m)
 
 void TAScene::getItems(OptionalMap m)
 {
+    size_t stateLinesNumber;
     std::vector<std::string> stateLines;
     HandleGrabLines<TAReference>(
         m.value(),
@@ -102,15 +106,19 @@ void TAScene::getItems(OptionalMap m)
         [&](auto item, auto delim)
         {
             if (delim != '%')
-                items.push_back((TAReference*)&(new TAReference())->Parse(item));
+                items.push_back((TAReference*)&(new TAReference())->Parse(item.second));
             else
-                stateLines.push_back(item);
+            {
+                stateLinesNumber = item.first;
+                stateLines.push_back(item.second);
+            }
         },
         false
     );
 
     if (stateLines.size() > 0)
     {
+        Parser::startHeaderLine = stateLinesNumber;
         auto stateHeaders = Parser::GetHeaders(
             stateLines,
             false,
@@ -123,6 +131,7 @@ void TAScene::getItems(OptionalMap m)
 
 void TAScene::getExits(OptionalMap m)
 {
+    size_t exitLinesNumber;
     std::vector<std::string> exitLines;
     HandleGrabLines<TAReference>(
         m.value(),
@@ -130,13 +139,15 @@ void TAScene::getExits(OptionalMap m)
         { '%' },
         [&](auto item, auto delim)
             {
-                exitLines.push_back(item);
+                exitLinesNumber = item.first;
+                exitLines.push_back(item.second);
             },
         false
     );
 
     if (exitLines.size() > 0)
     {
+        Parser::startHeaderLine = exitLinesNumber;
         auto exitHeaders = Parser::GetHeaders(
             exitLines,
             true,
@@ -145,7 +156,7 @@ void TAScene::getExits(OptionalMap m)
 
         for (auto exitHeader : exitHeaders)
         {
-            auto exitReference = ltrim(exitHeader.second[0]);
+            auto exitReference = ltrim(exitHeader.second.second[0]);
             auto exit = (TAReference*)&(new TAReference())->Parse(exitReference);
             exits.push_back(std::pair(exitHeader.first, exit));
         }

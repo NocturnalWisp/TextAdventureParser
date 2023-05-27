@@ -61,7 +61,7 @@ void TAEvent::getDescription(OptionalMap m)
         {},
         [&](auto item, auto delim)
             {
-                desc->getString().append(item);
+                desc->getString().append(item.second);
             },
             true
     );
@@ -69,6 +69,7 @@ void TAEvent::getDescription(OptionalMap m)
 
 void TAEvent::getActions(OptionalMap m)
 {
+    size_t actionLinesNumber;
     std::vector<std::string> actionLines;
     HandleGrabLines<std::string>(
         m.value(),
@@ -76,13 +77,15 @@ void TAEvent::getActions(OptionalMap m)
         {},
         [&](auto item, auto delim)
             {
-                actionLines.push_back(item);
+                actionLinesNumber = item.first;
+                actionLines.push_back(item.second);
             },
             false
     );
 
     if (actionLines.size() > 0)
     {
+        Parser::startHeaderLine = actionLinesNumber;
         auto actionHeaders = Parser::GetHeaders(
             actionLines,
             true,

@@ -2,6 +2,8 @@
 
 Parser::Parser() {}
 
+size_t Parser::startHeaderLine = 0;
+
 TextAdventure Parser::Parse(std::string& file)
 {
     TextAdventure textAdventure = TextAdventure();
@@ -12,6 +14,7 @@ TextAdventure Parser::Parse(std::string& file)
         throw tap::ParseException("Empty file, nothing to parse.", 0, 0);
 
     // (Scenes, Items, Events, etc...)
+    startHeaderLine = 0;
     auto headers = GetHeaders(lines, true);
 
     for (auto header : headers)
@@ -21,12 +24,14 @@ TextAdventure Parser::Parse(std::string& file)
             if (header.first.compare(strategy.first) == 0)
             {
                 // (Individual objects)
-                auto taObjHeader = GetHeaders(header.second, true, 1);
+                startHeaderLine = header.second.first;
+                auto taObjHeader = GetHeaders(header.second.second, true, 1);
 
                 for (auto headerForObject : taObjHeader)
                 {
                     // (Object internal properties.)
-                    auto objectHeader = GetHeaders(headerForObject.second, true, 2);
+                    startHeaderLine = headerForObject.second.first;
+                    auto objectHeader = GetHeaders(headerForObject.second.second, true, 2);
                     //TODO: Attach result to text adventure object.
                     auto objectName = std::string(headerForObject.first);
                     TAObject& result = strategy.second->Parse(objectName, objectHeader);
@@ -43,15 +48,20 @@ TextAdventure Parser::Parse(std::string& file)
 }
 
 // Returns a map of indented items.
-std::map<std::string, std::vector<std::string>> Parser::GetHeaders(std::vector<std::string>& lines, bool applyColonRemoval, int indentCount)
+HeaderMap Parser::GetHeaders(std::vector<std::string>& lines, bool applyColonRemoval, int indentCount)
 {
-    auto headers = std::map<std::string, std::vector<std::string>>();
+    auto headers = HeaderMap();
 
     std::vector<std::string> internalLines = std::vector<std::string>();
     bool inLineHeader = false;
     std::string lineHeader;
+
+    size_t lineNumber = startHeaderLine-1;
+    size_t headerLineNumber;
     for (std::string line : lines)
     {
+        lineNumber++;
+
         if (line[0] == '#' || line[0] == 0)
             continue;
 
@@ -63,17 +73,19 @@ std::map<std::string, std::vector<std::string>> Parser::GetHeaders(std::vector<s
 
         if (inLineHeader)
         {
-            headers.insert(std::pair(lineHeader, internalLines));
+            headers.insert(std::pair(lineHeader, std::pair(headerLineNumber, internalLines)));
             internalLines.clear();
         }
 
         lineHeader = applyColonRemoval ? std::get<0>(SpliceString(line, ':', true)) : line;
         inLineHeader = true;
+
+        headerLineNumber = lineNumber;
     }
 
     // Insert the last header.
     if (!lineHeader.empty())
-        headers.insert(std::pair(lineHeader, internalLines));
+        headers.insert(std::pair(lineHeader, std::pair(headerLineNumber, internalLines)));
 
     return headers;
 }

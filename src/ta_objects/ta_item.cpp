@@ -61,7 +61,7 @@ void TAItem::getDescription(OptionalMap m)
         {},
         [&](auto item, auto delim)
             {
-                desc->getString().append(item);
+                desc->getString().append(item.second);
             },
             true
     );
@@ -76,7 +76,7 @@ void TAItem::getActions(OptionalMap m)
         {},
         [&](auto item, auto delim)
             {
-                actionLines.push_back(item);
+                actionLines.push_back(item.second);
             },
             false
     );

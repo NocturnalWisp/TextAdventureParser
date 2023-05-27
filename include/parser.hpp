@@ -34,7 +34,9 @@ public:
 
 public:
     TextAdventure Parse(std::string& file);
-    static std::map<std::string, std::vector<std::string>> GetHeaders(std::vector<std::string>&, bool applyColonRemoval = false, int indentCount = 0);
+    static HeaderMap GetHeaders(std::vector<std::string>&, bool applyColonRemoval = false, int indentCount = 0);
+
+    static size_t startHeaderLine;
 
 private:
     const std::map<std::string, TAObject*> parseStrategies =
@@ -43,4 +45,5 @@ private:
         { "items", new TAItem() },
         { "events", new TAEvent() }
     };
+
 };

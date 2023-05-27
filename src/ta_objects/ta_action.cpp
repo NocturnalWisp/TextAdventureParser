@@ -13,17 +13,17 @@ TAObject& TAAction::Parse(std::string& str, OptionalMap m)
     return *this;
 }
 
-TAObject& TAAction::Parse(std::pair<std::string, std::vector<std::string>> action)
+TAObject& TAAction::Parse(std::pair<std::string, std::pair<size_t, std::vector<std::string>>> action)
 {
     statement = new TAString(action.first);
 
-    auto function = action.second[0];
+    auto function = action.second.second[0];
 
     functionName = new TAString(std::get<0>(SpliceString(RemoveDeliminators(function), ':', true)));
 
-    for (int i = 1; i < action.second.size(); i++)
+    for (int i = 1; i < action.second.second.size(); i++)
     {
-        auto arg = RemoveDeliminators(ltrim(action.second[i]));
+        auto arg = RemoveDeliminators(ltrim(action.second.second[i]));
 
         if (arg[0] == '$')
         {

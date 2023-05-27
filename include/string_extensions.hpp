@@ -10,11 +10,9 @@
 
 #include "ta_objects/ta_string.hpp"
 
-template<typename T>
-using StringMap = std::map<std::string, T>;
+using HeaderMap = std::map<std::string, std::pair<size_t, std::vector<std::string>>>;
 
-template<typename T>
-using StringMapIt = typename StringMap<T>::const_iterator;
+using HeaderMapIt = typename HeaderMap::const_iterator;
 
 namespace
 {
@@ -116,12 +114,11 @@ namespace
     }
 
     // Finds the first key that matches a passed list of keys.
-    template <typename T>
-    constexpr StringMapIt<T> FindFor(StringMapIt<T> first,
-        StringMapIt<T> last,
+    HeaderMapIt FindFor(HeaderMapIt first,
+        HeaderMapIt last,
         std::vector<std::string> const& keys,
-        char allowedDelim = ' ',
-        char& usedDelim = ' ')
+        char& usedDelim,
+        char allowedDelim = ' ')
     {
         for (; first != last; ++first)
         {
@@ -142,15 +139,15 @@ namespace
     }
 
     // Uses the find for to grab the contents of headers found by keys.
-    template <typename TAObj, typename MapType>
-    void HandleGrabLines(std::map<std::string, MapType> const& m,
+    template <typename TAObj>
+    void HandleGrabLines(HeaderMap const& m,
         std::vector<std::string> keys,
         char allowedDelims,
-        std::function<void(std::string, char)> handleAppend,
+        std::function<void(std::pair<size_t, std::string>, char)> handleAppend,
         bool trim = true)
     {
         auto usedDelim = ' ';
-        auto header = FindFor<MapType>
+        auto header = FindFor
             (m.begin(), m.end(), keys, allowedDelims, usedDelim);
         
         if (header == m.end())
@@ -162,15 +159,15 @@ namespace
             return;
         }
 
-        for (auto line : header->second)
+        for (auto line : header->second.second)
         {
             if (trim)
             {
                 auto trimmed = ltrim(line);
-                handleAppend(trimmed, usedDelim);
+                handleAppend(std::pair(header->second.first, trimmed), usedDelim);
             }
             else
-                handleAppend(line, usedDelim);
+                handleAppend(std::pair(header->second.first, line), usedDelim);
         }
     }
 

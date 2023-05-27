@@ -6,7 +6,7 @@
 #include <optional>
 #include <memory>
 
-using OptionalMap = std::optional<std::map<std::string, std::vector<std::string>>>;
+using OptionalMap = std::optional<std::map<std::string, std::pair<size_t, std::vector<std::string>>>>;
 
 class TAObject
 {

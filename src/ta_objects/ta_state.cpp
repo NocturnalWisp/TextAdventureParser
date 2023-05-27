@@ -24,18 +24,18 @@ TAObject& TAState::Parse(std::string&, OptionalMap m)
         if (ltrim(state.first)[0] != '%')
         {
             TAObject* newObj;
-            if (HasDeliminator(state.second[0], '$'))
+            if (HasDeliminator(state.second.second[0], '$'))
                 newObj = new TAReference();
             else
                 newObj = new TAString();
 
-            auto combinedString = CombineString(state.second);
+            auto combinedString = CombineString(state.second.second);
             states.push_back(&newObj->Parse(combinedString));
         }
         else
         {
             std::vector<TAObject *> objects;
-            for (auto stateItem : state.second)
+            for (auto stateItem : state.second.second)
             {
                 TAObject* newObj;
 
