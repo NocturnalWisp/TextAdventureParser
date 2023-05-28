@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ta_object.hpp"
+#include "ta_object.hpp"
 
 #include <memory>
 
@@ -8,6 +8,7 @@
 #include "ta_reference.hpp"
 #include "ta_array.hpp"
 
+namespace tap {
 class TAState : public TAObject
 {
 public:
@@ -24,5 +25,6 @@ public:
 
     std::string& getString() override;
 
-    std::string getClass() override;
+    int getType() override;
 };
+}

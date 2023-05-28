@@ -1,5 +1,7 @@
 #include "../../include/ta_objects/ta_string.hpp"
 
+using namespace tap;
+
 TAString::TAString()
 {
 }
@@ -27,7 +29,7 @@ std::string& TAString::getString()
     return str;
 }
 
-std::string TAString::getClass()
+int TAString::getType()
 {
-    return "TAString";
+    return 8;
 }

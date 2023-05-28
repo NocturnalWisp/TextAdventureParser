@@ -1,11 +1,21 @@
 #include "../include/parser.hpp"
 
-Parser::Parser() {}
+using namespace tap;
+
+Parser::Parser()
+{
+}
 
 size_t Parser::startHeaderLine = 0;
 
-TextAdventure Parser::Parse(std::string& file)
+TextAdventure Parser::Parse(std::string path)
 {
+    std::ifstream stream(path);
+    std::stringstream buffer;
+    buffer << stream.rdbuf();
+
+    auto file = buffer.str();
+
     TextAdventure textAdventure = TextAdventure();
 
     auto lines = GetLines(file);

@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-#include "../ta_object.hpp"
+#include "ta_object.hpp"
 
+namespace tap {
 class TAString : public TAObject
 {
 public:
@@ -18,5 +19,6 @@ public:
 
     std::string& getString() override;
 
-    std::string getClass() override;
+    int getType() override;
 };
+}

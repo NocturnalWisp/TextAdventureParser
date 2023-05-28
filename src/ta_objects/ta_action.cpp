@@ -1,5 +1,7 @@
 #include "../../include/ta_objects/ta_action.hpp"
 
+using namespace tap;
+
 TAAction::~TAAction()
 {
     delete statement;
@@ -56,7 +58,7 @@ std::string& TAAction::getString()
     return str;
 }
 
-std::string TAAction::getClass()
+int TAAction::getType()
 {
-    return "TAAction";
+    return 1;
 }

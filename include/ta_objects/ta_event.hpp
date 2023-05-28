@@ -3,13 +3,14 @@
 #include <iostream>
 #include <string>
 
-#include "../ta_object.hpp"
+#include "ta_object.hpp"
 #include "ta_action.hpp"
 #include "ta_string.hpp"
 
+namespace tap {
 class TAEvent : public TAObject
 {
-private:
+public:
     ~TAEvent();
 public:
     TAObject* name;
@@ -21,8 +22,9 @@ public:
     TAObject* Create() override;
 
     std::string& getString() override;
-    std::string getClass() override;
+    int getType() override;
 private:
     void getDescription(OptionalMap m);
     void getActions(OptionalMap m);
 };
+}

@@ -6,7 +6,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/assets/game.ta
 
 set(CMAKE_BUILD_TYPE Debug)
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
-add_library(tap src/parser.cpp ${SRC_FILES})
+add_library(tap SHARED src/parser.cpp ${SRC_FILES})
 
 add_executable(tap_main main.cpp)
 target_link_libraries(tap_main PRIVATE tap)

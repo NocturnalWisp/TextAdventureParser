@@ -8,18 +8,21 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
+#include <sstream>
 
 #include "../include/string_extensions.hpp"
 
 #include "text_adventure.hpp"
 
-#include "ta_object.hpp"
+#include "ta_objects/ta_object.hpp"
 #include "ta_objects/ta_scene.hpp"
 #include "ta_objects/ta_item.hpp"
 #include "ta_objects/ta_event.hpp"
 
 #include "ta_exceptions/ta_parse_exception.hpp"
 
+namespace tap {
 class TAScene;
 
 class Parser
@@ -37,7 +40,7 @@ public:
     }
 
 public:
-    TextAdventure Parse(std::string& file);
+    TextAdventure Parse(std::string);
     static HeaderMap GetHeaders(LineList&, bool applyColonRemoval = false, int indentCount = 0);
 
     static size_t startHeaderLine;
@@ -51,3 +54,4 @@ private:
     };
 
 };
+}

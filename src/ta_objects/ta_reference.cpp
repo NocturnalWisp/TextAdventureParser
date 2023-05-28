@@ -1,5 +1,7 @@
 #include "../../include/ta_objects/ta_reference.hpp"
 
+using namespace tap;
+
 TAObject& TAReference::Parse (std::string& str, OptionalMap m)
 {
     if (!HasDeliminator(str, '$'))
@@ -21,7 +23,7 @@ std::string& TAReference::getString()
     return str;
 };
 
-std::string TAReference::getClass()
+int TAReference::getType()
 {
-    return "TAReference";
+    return 5;
 }

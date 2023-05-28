@@ -2,6 +2,8 @@
 
 #include "../../include/parser.hpp"
 
+using namespace tap;
+
 TAItem::~TAItem()
 {
     delete name;
@@ -22,9 +24,9 @@ std::string& TAItem::getString()
     return name->getString();
 }
 
-std::string TAItem::getClass()
+int TAItem::getType()
 {
-    return "TAItem";
+    return 4;
 }
 
 TAObject& TAItem::Parse(std::string& itemName, OptionalMap m)

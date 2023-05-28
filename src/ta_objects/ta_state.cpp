@@ -1,5 +1,7 @@
 #include "../../include/ta_objects/ta_state.hpp"
 
+using namespace tap;
+
 TAState::TAState(size_t* currentState) : currentState(currentState)
 {
 }
@@ -67,7 +69,7 @@ std::string& TAState::getString()
         : defaultName;
 }
 
-std::string TAState::getClass()
+int TAState::getType()
 {
-    return "TAState";
+    return 7;
 }

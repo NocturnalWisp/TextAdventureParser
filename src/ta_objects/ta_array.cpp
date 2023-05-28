@@ -1,5 +1,7 @@
 #include "../../include/ta_objects/ta_array.hpp"
 
+using namespace tap;
+
 TAArray::TAArray(std::vector<TAObject *> objects) : objects(objects)
 {
     valid = true;
@@ -25,7 +27,7 @@ std::string& TAArray::getString()
     return str;
 }
 
-std::string TAArray::getClass()
+int TAArray::getType()
 {
-    return "TAArray";
+    return 2;
 }

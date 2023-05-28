@@ -9,6 +9,7 @@
 using LineList = std::vector<std::pair<size_t, std::string>>;
 using OptionalMap = std::optional<std::map<std::string, std::pair<size_t, LineList>>>;
 
+namespace tap {
 class TAObject
 {
 public:
@@ -21,7 +22,8 @@ public:
 
     virtual std::string& getString();
 
-    virtual std::string getClass() = 0;
+    virtual int getType() = 0;
 protected:
     std::string defaultName = "Text Adventure Object";
 };
+}

@@ -1,9 +1,10 @@
 #pragma once
 
-#include "../ta_object.hpp"
+#include "ta_object.hpp"
 
 #include "../string_extensions.hpp"
 
+namespace tap {
 class TAReference : public TAObject
 {
 public:
@@ -16,5 +17,6 @@ public:
     TAObject* Create() override;
 
     std::string& getString() override;
-    std::string getClass() override;
+    int getType() override;
 };
+}

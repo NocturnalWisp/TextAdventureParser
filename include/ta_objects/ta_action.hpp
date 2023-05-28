@@ -3,11 +3,13 @@
 #include <iostream>
 #include <string>
 
-#include "../ta_object.hpp"
+#include "ta_object.hpp"
 #include "../string_extensions.hpp"
 #include "ta_reference.hpp"
 #include "ta_string.hpp"
 
+namespace tap
+{
 class TAAction : public TAObject
 {
 public:
@@ -27,5 +29,6 @@ public:
 
     std::string& getString() override;
 
-    std::string getClass() override;
+    int getType() override;
 };
+}

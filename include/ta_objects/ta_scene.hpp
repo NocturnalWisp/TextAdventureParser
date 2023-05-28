@@ -4,13 +4,14 @@
 #include <string>
 #include <algorithm>
 
-#include "../ta_object.hpp"
+#include "ta_object.hpp"
 #include "ta_reference.hpp"
 #include "ta_state.hpp"
 #include "ta_string.hpp"
 
 #include "../string_extensions.hpp"
 
+namespace tap {
 class TAScene : public TAObject
 {
 public:
@@ -28,9 +29,10 @@ public:
     TAObject* Create() override;
 
     std::string& getString() override;
-    std::string getClass() override { return "TAScene"; }
+    int getType() override;
 private:
     void getDescription(OptionalMap m);
     void getItems(OptionalMap m);
     void getExits(OptionalMap m);
 };
+}

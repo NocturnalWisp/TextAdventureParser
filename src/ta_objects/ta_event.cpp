@@ -2,6 +2,8 @@
 
 #include "../../include/parser.hpp"
 
+using namespace tap;
+
 TAEvent::~TAEvent()
 {
     delete name;
@@ -22,9 +24,9 @@ std::string& TAEvent::getString()
     return name->getString();
 }
 
-std::string TAEvent::getClass()
+int TAEvent::getType()
 {
-    return "TAEvent";
+    return 3;
 }
 
 TAObject& TAEvent::Parse(std::string& itemName, OptionalMap m)

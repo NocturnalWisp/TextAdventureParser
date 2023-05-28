@@ -1,4 +1,6 @@
-#include "../../include/ta_object.hpp"
+#include "../../include/ta_objects/ta_object.hpp"
+
+using namespace tap;
 
 TAObject& TAObject::Parse(std::string& str, OptionalMap m)
 {
@@ -10,7 +12,7 @@ std::string& TAObject::getString()
     return defaultName;
 }
 
-std::string TAObject::getClass()
+int TAObject::getType()
 {
-    return "TAObject";
+    return 0;
 }

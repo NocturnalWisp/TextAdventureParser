@@ -3,9 +3,10 @@
 #include <iostream>
 #include <string>
 
-#include "../ta_object.hpp"
+#include "ta_object.hpp"
 #include "../string_extensions.hpp"
 
+namespace tap {
 class TAArray : public TAObject
 {
 public:
@@ -19,7 +20,8 @@ public:
 
     std::string& getString() override;
 
-    std::string getClass() override;
+    int getType() override;
 private:
     std::string str;
 };
+}

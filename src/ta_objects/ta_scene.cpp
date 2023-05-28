@@ -2,6 +2,8 @@
 
 #include "../../include/parser.hpp"
 
+using namespace tap;
+
 TAScene::~TAScene()
 {
     delete name;
@@ -24,6 +26,11 @@ TAObject* TAScene::Create()
 std::string& TAScene::getString()
 {
     return name->getString();
+}
+
+int TAScene::getType()
+{
+    return 6;
 }
 
 TAObject& TAScene::Parse(std::string& sceneName, OptionalMap m)
