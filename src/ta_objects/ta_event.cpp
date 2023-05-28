@@ -64,6 +64,14 @@ void TAEvent::getDescription(OptionalMap m)
                 desc->getString().append(item.second);
             },
             true
+#ifdef DEBUGTAP
+        , [&]()
+            {
+                throw tap::ParseException("Could not get a description from event \"" + this->name->getString() + "\".",
+                    Parser::startHeaderLine,
+                    4);
+            }
+#endif
     );
 }
 
@@ -81,6 +89,14 @@ void TAEvent::getActions(OptionalMap m)
                 actionLines.push_back(item);
             },
             false
+#ifdef DEBUGTAP
+        , [&]()
+            {
+                throw tap::ParseException("Could not get any actions in event \"" + this->name->getString() + "\".",
+                    Parser::startHeaderLine,
+                    4);
+            }
+#endif
     );
 
     if (actionLines.size() > 0)

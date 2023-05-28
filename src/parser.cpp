@@ -10,8 +10,11 @@ TextAdventure Parser::Parse(std::string& file)
 
     auto lines = GetLines(file);
 
+    // Throw error: empty file.
+#ifdef DEBUGTAP
     if (lines.size() == 0)
         throw tap::ParseException("Empty file, nothing to parse.", 0, 0);
+#endif
 
     // (Scenes, Items, Events, etc...)
     startHeaderLine = 0;
@@ -46,6 +49,7 @@ TextAdventure Parser::Parse(std::string& file)
             }
         }
         
+        // Throw error: invalid main header.
 #ifdef DEBUGTAP
         if (!foundHeader)
         {
@@ -60,6 +64,10 @@ TextAdventure Parser::Parse(std::string& file)
         }
 #endif
     }
+
+    //TODO: throw error if no strategies were complete. (Empty file)
+    // if (lines.size() == 0)
+    //     throw tap::ParseException("Empty file, nothing to parse.", 0, 0);
 
     return textAdventure;
 }

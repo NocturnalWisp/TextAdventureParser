@@ -63,7 +63,15 @@ void TAItem::getDescription(OptionalMap m)
             {
                 desc->getString().append(item.second);
             },
-            true
+        true
+#ifdef DEBUGTAP
+        , [&]()
+            {
+                throw tap::ParseException("Could not get a description from item \"" + this->name->getString() + "\".",
+                    Parser::startHeaderLine,
+                    4);
+            }
+#endif
     );
 }
 

@@ -151,7 +151,8 @@ namespace
         std::vector<std::string> keys,
         std::vector<char> allowedDelims,
         std::function<void(std::pair<size_t, std::string>, std::pair<size_t, char>)> handleAppend,
-        bool trim = true)
+        bool trim = true,
+        std::function<void()> failed = nullptr)
     {
         auto usedDelim = ' ';
         auto header = FindFor
@@ -159,10 +160,7 @@ namespace
         
         if (header == m.end())
         {
-            std::cerr << "Failed to find header by any of these keys: [";
-            for (auto key : keys)
-                std::cerr << key << ", ";
-            std::cerr << "\b\b]" << std::endl;
+            failed();
             return;
         }
 

@@ -75,7 +75,15 @@ void TAScene::getDescription(OptionalMap m)
                     stateLines.push_back(item);
                 }
             },
-            false
+        false
+#ifdef DEBUGTAP
+        , [&]()
+            {
+                throw tap::ParseException("Could not get a description from scene \"" + this->name->getString() + "\".",
+                    Parser::startHeaderLine,
+                    4);
+            }
+#endif
     );
 
     if (stateLines.size() > 0)
