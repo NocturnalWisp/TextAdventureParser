@@ -43,14 +43,6 @@ TAObject& TAEvent::Parse(std::string& itemName, OptionalMap m)
     getDescription(m);
     getActions(m);
 
-    std::cout << std::endl;
-    std::cout << name->getString() << std::endl;
-    if (desc != nullptr)
-        std::cout << desc->getString() << std::endl;
-    for (auto action : actions)
-        std::cout << action->getString() << std::endl;
-    std::cout << std::endl;
-
     valid = true;
     return *this;
 };

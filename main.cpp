@@ -17,7 +17,9 @@ int main(int , char *[])
 
     try
     {
-        TextAdventure TextAdventure = parser->Parse("game.ta");
+        TextAdventure textAdventure = parser->Parse("game.ta");
+
+        std::cout << textAdventure.getString() << std::endl;
     }
     catch(const tap::ParseException& e)
     {

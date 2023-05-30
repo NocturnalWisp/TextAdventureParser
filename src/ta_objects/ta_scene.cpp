@@ -48,16 +48,6 @@ TAObject& TAScene::Parse(std::string& sceneName, OptionalMap m)
     getItems(m);
     getExits(m);
 
-    std::cout << std::endl;
-    std::cout << name->getString() << std::endl;
-    if (desc != nullptr)
-        std::cout << desc->getString() << std::endl;
-    for (auto item : items)
-        std::cout << item->getString() << std::endl;
-    for (auto exit : exits)
-        std::cout << std::get<0>(exit).str << " : " << std::get<1>(exit)->getString() << std::endl;
-    std::cout << std::endl;
-
     valid = true;
     return *this;
 };

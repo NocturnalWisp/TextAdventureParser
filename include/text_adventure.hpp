@@ -15,5 +15,9 @@ public:
     std::vector<TAScene*> scenes;
     std::vector<TAItem*> items;
     std::vector<TAEvent*> events;
+
+    void ParseStrategy(TAObject* object);
+
+    std::string getString();
 };
 }
