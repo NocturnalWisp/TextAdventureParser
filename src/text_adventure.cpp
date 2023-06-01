@@ -49,15 +49,14 @@ std::string TextAdventure::getString()
             if (item != nullptr)
                 output.append(item->getString() + "\n");
         for (auto exit : scene->exits)
-            output.append(std::get<0>(exit).str + " : " + std::get<1>(exit)->getString() + "\n");
+            output.append(std::get<0>(exit).getString() + " : " + std::get<1>(exit).getString() + "\n");
         output.append("\n");
     }
 
     for (auto item : items)
     {
-        output.append("\n" + item->name->getString() + "\n");
-        if (item->desc != nullptr)
-            output.append(item->desc->getString() + "\n");
+        output.append("\n" + item->name.getString() + "\n");
+        output.append(item->desc.getString() + "\n");
         for (auto action : item->actions)
             if (action != nullptr)
                 output.append(action->getString() + "\n");
@@ -66,9 +65,8 @@ std::string TextAdventure::getString()
 
     for (auto event : events)
     {
-        output.append("\n" + event->name->getString() + "\n");
-        if (event->desc != nullptr)
-            output.append(event->desc->getString() + "\n");
+        output.append("\n" + event->name.getString() + "\n");
+        output.append(event->desc.getString() + "\n");
         for (auto action : event->actions)
             if (action != nullptr)
                 output.append(action->getString() + "\n");

@@ -4,7 +4,7 @@
 scenes:
     woods:
         desc:
-            The woods are filthy with litter from the padestrians that walked beneath its branches.
+            The woods are filthy with litter from the pedestrians that walked beneath its branches.
         items:
             $branch
         exits:
@@ -35,7 +35,7 @@ items:
             combine branch & bread:
                 combine_items:
                     $self
-                    $moldy bread
+                    $bread
                     $bread on a stick
     bread:
         desc:

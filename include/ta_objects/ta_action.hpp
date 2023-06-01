@@ -17,8 +17,8 @@ public:
 private:
     std::string str;
 public:
-    TAObject* statement;
-    TAObject* functionName;
+    TAString statement;
+    TAString functionName;
     std::vector<TAObject *> arguments;
 
     TAObject& Parse(std::string& str, OptionalMap m);

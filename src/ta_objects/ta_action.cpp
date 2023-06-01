@@ -4,8 +4,6 @@ using namespace tap;
 
 TAAction::~TAAction()
 {
-    delete statement;
-    delete functionName;
     for (auto arg : arguments)
         delete arg;
     arguments.clear();
@@ -17,11 +15,11 @@ TAObject& TAAction::Parse(std::string& str, OptionalMap m)
 
 TAObject& TAAction::Parse(std::pair<std::string, std::pair<size_t, LineList>> action)
 {
-    statement = new TAString(action.first);
+    statement = TAString(action.first);
 
     auto function = action.second.second[0];
 
-    functionName = new TAString(std::get<0>(SpliceString(RemoveDeliminators(function.second), ':', true)));
+    functionName = TAString(std::get<0>(SpliceString(RemoveDeliminators(function.second), ':', true)));
 
     for (int i = 1; i < action.second.second.size(); i++)
     {
@@ -48,8 +46,8 @@ TAObject* TAAction::Create()
 
 std::string& TAAction::getString()
 {
-    str = statement->getString() + " : " +
-        functionName->getString() + "(";
+    str = statement.getString() + " : " +
+        functionName.getString() + "(";
     for (auto arg : arguments)
     {
         str.append(arg->getString() + ", ");

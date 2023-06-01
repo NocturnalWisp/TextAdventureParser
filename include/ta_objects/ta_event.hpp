@@ -13,8 +13,8 @@ class TAEvent : public TAObject
 public:
     ~TAEvent();
 public:
-    TAObject* name;
-    TAObject* desc = new TAString();
+    TAString name = TAString();
+    TAString desc = TAString();
     std::vector<TAAction*> actions;
 
     TAObject& Parse(std::string& str, OptionalMap m) override;

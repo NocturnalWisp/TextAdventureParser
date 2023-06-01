@@ -6,9 +6,6 @@ using namespace tap;
 
 TAEvent::~TAEvent()
 {
-    delete name;
-    delete desc;
-
     for (auto action : actions)
         delete action;
     actions.clear();
@@ -21,7 +18,7 @@ TAObject* TAEvent::Create()
 
 std::string& TAEvent::getString()
 {
-    return name->getString();
+    return name.getString();
 }
 
 int TAEvent::getType()
@@ -37,8 +34,10 @@ TAObject& TAEvent::Parse(std::string& itemName, OptionalMap m)
     }
 
     auto propertyHeaders = m.value();
+
+    std::cout << itemName << std::endl;
     
-    name = new TAString(itemName);
+    name.str = itemName;
 
     getDescription(m);
     getActions(m);
@@ -55,13 +54,13 @@ void TAEvent::getDescription(OptionalMap m)
         {},
         [&](auto item, auto delim)
             {
-                desc->getString().append(item.second);
+                desc.str.append(item.second);
             },
             true
 #ifdef DEBUGTAP
         , [&]()
             {
-                throw tap::ParseException("Could not get a description from event \"" + this->name->getString() + "\".",
+                throw tap::ParseException("Could not get a description from event \"" + this->name.getString() + "\".",
                     Parser::startHeaderLine,
                     4);
             }
@@ -86,7 +85,7 @@ void TAEvent::getActions(OptionalMap m)
 #ifdef DEBUGTAP
         , [&]()
             {
-                throw tap::ParseException("Could not get any actions in event \"" + this->name->getString() + "\".",
+                throw tap::ParseException("Could not get any actions in event \"" + this->name.getString() + "\".",
                     Parser::startHeaderLine,
                     4);
             }

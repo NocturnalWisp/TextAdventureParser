@@ -6,9 +6,6 @@ using namespace tap;
 
 TAItem::~TAItem()
 {
-    delete name;
-    delete desc;
-
     for (auto action : actions)
         delete action;
     actions.clear();
@@ -21,7 +18,7 @@ TAObject* TAItem::Create()
 
 std::string& TAItem::getString()
 {
-    return name->getString();
+    return name.getString();
 }
 
 int TAItem::getType()
@@ -38,7 +35,7 @@ TAObject& TAItem::Parse(std::string& itemName, OptionalMap m)
 
     auto propertyHeaders = m.value();
     
-    name = new TAString(itemName);
+    name.str = itemName;
 
     getDescription(m);
     getActions(m);
@@ -55,13 +52,13 @@ void TAItem::getDescription(OptionalMap m)
         {},
         [&](auto item, auto delim)
             {
-                desc->getString().append(item.second);
+                desc.str.append(item.second);
             },
         true
 #ifdef DEBUGTAP
         , [&]()
             {
-                throw tap::ParseException("Could not get a description from item \"" + this->name->getString() + "\".",
+                throw tap::ParseException("Could not get a description from item \"" + name.getString() + "\".",
                     Parser::startHeaderLine,
                     4);
             }

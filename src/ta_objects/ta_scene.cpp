@@ -13,8 +13,6 @@ TAScene::~TAScene()
         delete item;
     items.clear();
 
-    for (auto exit : exits)
-        delete std::get<1>(exit);
     exits.clear();
 }
 
@@ -162,7 +160,10 @@ void TAScene::getExits(OptionalMap m)
         for (auto exitHeader : exitHeaders)
         {
             auto exitReference = ltrim(exitHeader.second.second[0].second);
-            auto exit = (TAReference*)&(new TAReference())->Parse(exitReference);
+
+            auto exit = TAReference();
+            exit.Parse(exitReference);
+
             exits.push_back(std::pair(exitHeader.first, exit));
         }
     }
